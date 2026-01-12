@@ -25,7 +25,7 @@ export function Footer() {
             </Link>
           </div>
           <div>
-            Power by{' '}
+            Powered by{' '}
             <Link
               className={cn(
                 buttonVariants({ variant: 'link' }),

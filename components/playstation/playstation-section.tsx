@@ -25,7 +25,6 @@ export function PlayStationSection() {
         }
 
         const data = await response.json()
-        console.log(data)
         setProfile(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error')

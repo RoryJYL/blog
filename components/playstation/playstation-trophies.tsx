@@ -1,12 +1,10 @@
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import type { Game, ProfileSummary } from '@/lib/playstationTypes'
-import { Icon } from '@iconify/react'
 import dayjs from 'dayjs'
 import Image from 'next/image'
 import { Trophy } from './trophy'
