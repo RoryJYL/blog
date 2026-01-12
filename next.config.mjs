@@ -11,8 +11,8 @@ if (process.env.NODE_ENV === 'development') {
 const nextConfig = withContentlayer({
   output: 'export',
   env: {
-    // PSN_API_URL: 'https://playstation-network-api.fw45rqnzhz.workers.dev',
-    PSN_API_URL: 'http://localhost:8787',
+    PSN_API_URL: 'https://playstation-network-api.fw45rqnzhz.workers.dev',
+    // PSN_API_URL: 'http://localhost:8787',
   },
   images: {
     unoptimized: true,
