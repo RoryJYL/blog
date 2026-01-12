@@ -15,6 +15,10 @@ const navLinks: { title: string; href: string; description?: string }[] = [
     title: '文章',
     href: '/posts',
   },
+  {
+    title: '游戏',
+    href: '/gamer-profile',
+  },
 ]
 
 export function Header() {

@@ -1,19 +1,19 @@
 'use client'
 
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import type { TocItem } from '@/hooks/useActiveSection'
 import { cn } from '@/lib/tailwindUtils'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
-import TableOfContents from '../toc'
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
 import { useState } from 'react'
+import TableOfContents from '../toc'
 
 type GoTopProps = {
   toc?: TocItem[]

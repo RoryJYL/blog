@@ -3,6 +3,7 @@ import { Header } from '@app/components/header'
 import type { Metadata } from 'next'
 import { memo } from 'react'
 import './globals.css'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { Footer } from './components/footer'
 
 export const metadata: Metadata = {
@@ -29,9 +30,11 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
-          <Footer />
+          <TooltipProvider delayDuration={300}>
+            <Header />
+            {children}
+            <Footer />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

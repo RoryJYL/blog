@@ -2,9 +2,9 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useActiveSection } from '@/hooks/useActiveSection'
 import { cn } from '@/lib/tailwindUtils'
 import Link from 'next/link'
-import { useActiveSection } from '@/hooks/useActiveSection'
 
 type TocItem = {
   depth: number

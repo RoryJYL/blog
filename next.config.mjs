@@ -10,12 +10,32 @@ if (process.env.NODE_ENV === 'development') {
  **/
 const nextConfig = withContentlayer({
   output: 'export',
+  env: {
+    // PSN_API_URL: 'https://playstation-network-api.fw45rqnzhz.workers.dev',
+    PSN_API_URL: 'http://localhost:8787',
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '*.webp.li',
+      },
+      {
+        protocol: 'https',
+        hostname: 'psn-rsc.prod.dl.playstation.net',
+      },
+      {
+        protocol: 'http',
+        hostname: 'psn-rsc.prod.dl.playstation.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'psnobj.prod.dl.playstation.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.api.playstation.com',
       },
     ],
   },
