@@ -8,6 +8,7 @@ import type { Game, ProfileSummary } from '@/lib/playstationTypes'
 import dayjs from 'dayjs'
 import Image from 'next/image'
 import { Trophy } from './trophy'
+import { PlatformIcon } from './platform-icon'
 
 interface PlayStationTrophiesProps {
   profile: ProfileSummary
@@ -75,17 +76,19 @@ function TrophiesSummary({ profile }: { profile: ProfileSummary }) {
 }
 
 function GameCard({ game }: { game: Game }) {
+  const { title, iconUrl, earnedDate, earnedTrophies, platform } = game
   const showTrophies = ['platinum', 'gold', 'silver', 'bronze'] as const
-  const earnedDate = new Date(game.earnedDate)
 
   return (
     <div className="flex gap-2 border rounded-md p-4 items-center cursor-default">
-      <div className="w-20 h-20 relative shrink-0">
-        <Image
-          src={game.iconUrl}
-          alt={game.title}
-          fill
-          className="object-contain"
+      <div className="w-20 h-20 relative shrink-0 overflow-hidden rounded">
+        {platform !== 'PS5' && (
+          <Image src={iconUrl} alt={title} fill className="object-cover blur" />
+        )}
+        <Image src={iconUrl} alt={title} fill className="object-contain" />
+        <PlatformIcon
+          platform={platform}
+          className="absolute bottom-0 left-0 right-0 w-full h-[14px] bg-foreground/80 text-background flex items-center justify-center"
         />
       </div>
       <div className="flex flex-col justify-between h-full overflow-hidden">
@@ -93,11 +96,11 @@ function GameCard({ game }: { game: Game }) {
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="text-ellipsis overflow-hidden whitespace-nowrap">
-                {game.title}
+                {title}
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{game.title}</p>
+              <p>{title}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -106,7 +109,7 @@ function GameCard({ game }: { game: Game }) {
               <Trophy
                 key={trophy}
                 type={trophy}
-                count={game.earnedTrophies[trophy]}
+                count={earnedTrophies[trophy]}
               />
             ))}
           </div>

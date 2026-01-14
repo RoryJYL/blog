@@ -39,6 +39,15 @@ const nextConfig = withContentlayer({
       },
     ],
   },
+  webpack(config) {
+    // 让 import xx.svg 变成 React 组件
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+    return config
+  },
 })
 
 export default nextConfig

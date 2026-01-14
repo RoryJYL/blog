@@ -5,11 +5,15 @@ export interface TrophyCount {
   platinum: number
 }
 
+export type Platform = 'PS5' | 'PS4' | 'PS3' | string
+
 export interface Game {
   title: string
   iconUrl: string
   earnedDate: string
   earnedTrophies: TrophyCount
+  platform: Platform
+  progress: number
 }
 
 export interface ProfileSummary {
