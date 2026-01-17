@@ -17,7 +17,7 @@ interface PlayStationTrophiesProps {
 export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-2">
+      <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-4 space-y-0">
         <div className="shrink-0 flex items-center gap-2">
           <Image
             src={profile.avatarUrl}
@@ -67,7 +67,7 @@ function TrophiesSummary({ profile }: { profile: ProfileSummary }) {
   ] as const
 
   return (
-    <div className="flex items-center gap-4 flex-wrap">
+    <div className="flex items-center gap-x-4 gap-y-1 flex-wrap">
       {trophiesSummary.map((trophy) => (
         <Trophy key={trophy.type} type={trophy.type} count={trophy.count} />
       ))}
