@@ -7,14 +7,25 @@ import {
 import type { Game, ProfileSummary } from '@/lib/playstationTypes'
 import dayjs from 'dayjs'
 import Image from 'next/image'
-import { Trophy } from './trophy'
+import { TrophyIcon } from './trophy'
 import { PlatformIcon } from './platform-icon'
+import PlayStationTrophyCardList from './play-station-trophy-card-list'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
+import { usePlaystationStore } from '../playstation-store-provider'
 
 interface PlayStationTrophiesProps {
   profile: ProfileSummary
 }
 
 export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
+  const showPossibleSpoilerTrophies = usePlaystationStore(
+    (state) => state.showPossibleSpoilerTrophies,
+  )
+  const setShowPossibleSpoilerTrophies = usePlaystationStore(
+    (state) => state.setShowPossibleSpoilerTrophies,
+  )
+
   return (
     <Card>
       <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-4 space-y-0">
@@ -32,6 +43,20 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
         <TrophiesSummary profile={profile} />
       </CardHeader>
       <CardContent>
+        <div className="flex items-center gap-2 mb-2">
+          <Switch
+            defaultChecked={showPossibleSpoilerTrophies}
+            id="show-possible-spoiler-trophies"
+            className="data-[state=unchecked]:bg-neutral-700 data-[state=checked]:bg-primary/50"
+            onCheckedChange={(checked) => {
+              setShowPossibleSpoilerTrophies(checked)
+            }}
+          />
+          <Label htmlFor="show-possible-spoiler-trophies">
+            显示可能剧透的奖杯
+          </Label>
+        </div>
+        <PlayStationTrophyCardList games={profile.platinumGames} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {profile.platinumGames.map((game) => (
             <GameCard key={game.title} game={game} />
@@ -69,7 +94,7 @@ function TrophiesSummary({ profile }: { profile: ProfileSummary }) {
   return (
     <div className="flex items-center gap-x-4 gap-y-1 flex-wrap">
       {trophiesSummary.map((trophy) => (
-        <Trophy key={trophy.type} type={trophy.type} count={trophy.count} />
+        <TrophyIcon key={trophy.type} type={trophy.type} count={trophy.count} />
       ))}
     </div>
   )
@@ -93,20 +118,12 @@ function GameCard({ game }: { game: Game }) {
       </div>
       <div className="flex flex-col justify-between h-full overflow-hidden">
         <div>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="text-ellipsis overflow-hidden whitespace-nowrap">
-                {title}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{title}</p>
-            </TooltipContent>
-          </Tooltip>
-
+          <div className="text-ellipsis overflow-hidden whitespace-nowrap">
+            {title}
+          </div>
           <div className="flex items-center gap-2">
             {showTrophies.map((trophy) => (
-              <Trophy
+              <TrophyIcon
                 key={trophy}
                 type={trophy}
                 count={earnedTrophies[trophy]}

@@ -14,6 +14,10 @@ export interface Game {
   earnedTrophies: TrophyCount
   platform: Platform
   progress: number
+  trophyDetails: {
+    trophies: TrophyDetail[]
+    updatedAt: string
+  }
 }
 
 export interface ProfileSummary {
@@ -27,9 +31,18 @@ export interface ProfileSummary {
   platinumGames: Game[]
 }
 
-export interface Trophy {
-  title: string
-  iconUrl: string
-  earnedDate: string
-  earnedTrophies: TrophyCount
+export type TrophyType = 'platinum' | 'gold' | 'silver' | 'bronze'
+
+export interface TrophyDetail {
+  trophyId: number
+  trophyHidden: boolean
+  trophyType: TrophyType
+  trophyName: string
+  trophyDetail: string
+  trophyIconUrl: string
+  trophyGroupId: string
+  earned: boolean
+  earnedDateTime: string
+  trophyRare: number
+  trophyEarnedRate: string
 }

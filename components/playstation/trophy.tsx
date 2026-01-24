@@ -1,11 +1,19 @@
 import { cn } from '@/lib/tailwindUtils'
 import { Icon } from '@iconify/react'
+import Image from 'next/image'
+import type { TrophyType } from '@/lib/playstationTypes'
 
-export interface TrophyProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TrophyIconImageProps
+  extends React.HTMLAttributes<HTMLImageElement> {
+  type: TrophyType
+  count?: number
+}
+
+export interface TrophyIconProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The type of trophy
    */
-  type: 'default' | 'gold' | 'silver' | 'bronze' | 'platinum'
+  type: TrophyType | 'default'
   /**
    * The count of trophies
    */
@@ -20,7 +28,20 @@ const trophyColors = {
   platinum: 'text-[#6B7FAE]',
 }
 
-export function Trophy({ className, type, count, ...props }: TrophyProps) {
+const TROPHY_ICONS_BASE_URL = 'https://ab84760.webp.li/play-station'
+const TROPHY_ICONS_MAP = {
+  platinum: `${TROPHY_ICONS_BASE_URL}/platinum.png`,
+  gold: `${TROPHY_ICONS_BASE_URL}/gold.png`,
+  silver: `${TROPHY_ICONS_BASE_URL}/silver.png`,
+  bronze: `${TROPHY_ICONS_BASE_URL}/bronze.png`,
+}
+
+export function TrophyIcon({
+  className,
+  type,
+  count,
+  ...props
+}: TrophyIconProps) {
   const color = trophyColors[type] || trophyColors.default
   return (
     <div
@@ -30,5 +51,16 @@ export function Trophy({ className, type, count, ...props }: TrophyProps) {
       <Icon icon="icon-park-solid:trophy" className={color} />
       {count && <span>{count.toLocaleString()}</span>}
     </div>
+  )
+}
+
+export function TrophyIconImage({
+  className,
+  type,
+  count,
+  ...props
+}: TrophyIconImageProps) {
+  return (
+    <Image src={TROPHY_ICONS_MAP[type]} alt={type} fill className={className} />
   )
 }

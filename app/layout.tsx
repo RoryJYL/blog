@@ -5,6 +5,7 @@ import { memo } from 'react'
 import './globals.css'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Footer } from './components/footer'
+import { PlaystationStoreProvider } from '@/components/playstation-store-provider'
 
 export const metadata: Metadata = {
   // 整个站点共用的 metadata
@@ -30,11 +31,13 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider delayDuration={300}>
-            <Header />
-            {children}
-            <Footer />
-          </TooltipProvider>
+          <PlaystationStoreProvider>
+            <TooltipProvider delayDuration={300}>
+              <Header />
+              {children}
+              <Footer />
+            </TooltipProvider>
+          </PlaystationStoreProvider>
         </ThemeProvider>
       </body>
     </html>

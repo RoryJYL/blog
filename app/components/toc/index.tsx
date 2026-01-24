@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useActiveSection } from '@/hooks/useActiveSection'
+import { useActiveSection } from '@/hooks/use-active-section'
 import { cn } from '@/lib/tailwindUtils'
 import Link from 'next/link'
 
