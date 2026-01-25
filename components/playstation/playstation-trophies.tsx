@@ -38,16 +38,16 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
         <TrophiesSummary profile={profile} />
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center mb-2">
           <Switch
             defaultChecked={showPossibleSpoilerTrophies}
             id="show-possible-spoiler-trophies"
-            className="data-[state=unchecked]:bg-neutral-700 data-[state=checked]:bg-primary/50"
+            className="data-[state=unchecked]:bg-neutral-700 data-[state=checked]:bg-primary/50 scale-75 origin-left"
             onCheckedChange={(checked) => {
               setShowPossibleSpoilerTrophies(checked)
             }}
           />
-          <Label htmlFor="show-possible-spoiler-trophies">
+          <Label htmlFor="show-possible-spoiler-trophies" className="-ml-1">
             显示可能剧透的奖杯
           </Label>
         </div>
