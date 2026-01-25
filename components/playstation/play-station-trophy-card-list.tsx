@@ -86,7 +86,7 @@ export default function PlayStationTrophyCardList({
                     duration: 0.05,
                   },
                 }}
-                className="flex absolute top-2 right-2 items-center justify-center h-6 w-6 z-10 cursor-pointer"
+                className="flex absolute top-2 right-2 items-center justify-center h-6 w-6 z-100 cursor-pointer"
                 onClick={() => setActive(null)}
               >
                 <Icon icon="mdi:close-circle" className="h-full w-full" />
