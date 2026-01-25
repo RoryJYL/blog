@@ -9,12 +9,12 @@ type TagListProps = {
 export function BadgeList({ badges }: TagListProps) {
   return (
     <div className="space-x-2">
-      {badges.map((badge, index) => (
+      {badges.map((badge) => (
         <span key={`${badge.name}-${badge.url}`}>
           <div
             className={cn(
               badgeVariants({
-                variant: badge.isPrimary ? 'secondary' : 'outline-solid',
+                variant: badge.isPrimary ? 'secondary' : 'outline',
               }),
               'text-opacity-60 hover:text-opacity-85 transition',
             )}
