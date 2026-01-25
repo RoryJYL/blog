@@ -44,20 +44,20 @@ export function PostList({
         {!!title && <div className="text-lg font-bold mb-2">{title}</div>}
         <div className="flex flex-col">
           {infos.map((info) => (
-            <Link href={info.url} key={info._id}>
-              <Button
-                variant="link"
-                className={cn(
-                  'p-0 h-9',
-                  'hover:no-underline',
-                  'text-primary/70 hover:text-primary',
-                  currentId === info._id && 'text-primary',
-                  !currentId && 'text-primary/80 hover:text-primary',
-                )}
-              >
-                {info.title}
-              </Button>
-            </Link>
+            <Button
+              variant="link"
+              className={cn(
+                'p-0 h-9 justify-start',
+                'hover:no-underline',
+                'text-primary/70 hover:text-primary',
+                currentId === info._id && 'text-primary',
+                !currentId && 'text-primary/80 hover:text-primary',
+              )}
+              key={info._id}
+              asChild
+            >
+              <Link href={info.url}>{info.title}</Link>
+            </Button>
           ))}
         </div>
       </CardContent>
