@@ -4,7 +4,7 @@ import {
   getAllCategories,
   getAllTags,
   getTotalPostCount,
-} from '@/lib/contentplayerUtils'
+} from '@/lib/contentplayer-utils'
 import Image from 'next/image'
 
 export function Info() {

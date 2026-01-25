@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 import { Icon } from '@iconify/react'
 import type { Metadata } from 'next'
 import Link from 'next/link'

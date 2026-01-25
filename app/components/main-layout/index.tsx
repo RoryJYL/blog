@@ -1,4 +1,4 @@
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 
 type MainLayoutProps = {
   left?: React.ReactNode

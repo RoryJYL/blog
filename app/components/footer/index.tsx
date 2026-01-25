@@ -1,5 +1,5 @@
 import { buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 import Link from 'next/link'
 
 export function Footer() {

@@ -4,7 +4,7 @@ import {
   POST_PAGE_SIZE,
   getPosts,
   getTotalPostCount,
-} from '@/lib/contentplayerUtils'
+} from '@/lib/contentplayer-utils'
 
 type PostsPageProps = {
   params: { slug?: string[] }

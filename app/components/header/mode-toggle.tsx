@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 import { Icon } from '@iconify/react'
 import { useTheme } from 'next-themes'
 

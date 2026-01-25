@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import type { TocItem } from '@/hooks/use-active-section'
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { useState } from 'react'

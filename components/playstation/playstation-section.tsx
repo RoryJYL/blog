@@ -2,7 +2,7 @@
 
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item'
 import { Spinner } from '@/components/ui/spinner'
-import type { ProfileSummary } from '@/lib/playstationTypes'
+import type { ProfileSummary } from '@/lib/playstation-types'
 import { useEffect, useState } from 'react'
 import { PlayStationTrophies } from './playstation-trophies'
 

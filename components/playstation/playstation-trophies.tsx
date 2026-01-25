@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import type { Game, ProfileSummary } from '@/lib/playstationTypes'
+import type { Game, ProfileSummary } from '@/lib/playstation-types'
 import dayjs from 'dayjs'
 import Image from 'next/image'
 import { usePlaystationStore } from '../playstation-store-provider'

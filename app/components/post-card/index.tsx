@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { getPostBadges } from '@/lib/postUtils'
+import { getPostBadges } from '@/lib/post-utils'
 import type { Post } from 'contentlayer/generated'
 import dayjs from 'dayjs'
 import Image from 'next/image'

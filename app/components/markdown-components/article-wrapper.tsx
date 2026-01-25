@@ -1,4 +1,4 @@
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 
 export function ArticleWrapper({ children }: React.PropsWithChildren) {
   return (

@@ -6,7 +6,7 @@ import {
   PaginationLink,
   Pagination as PaginationUI,
 } from '@/components/ui/pagination'
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 import Link from 'next/link'
 import { useCallback } from 'react'
 

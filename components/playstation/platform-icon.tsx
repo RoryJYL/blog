@@ -1,5 +1,5 @@
-import type { Platform } from '@/lib/playstationTypes'
-import { cn } from '@/lib/tailwindUtils'
+import type { Platform } from '@/lib/playstation-types'
+import { cn } from '@/lib/tailwind-utils'
 import PS4Icon from '@/public/icon/ps4.svg'
 import PS5Icon from '@/public/icon/ps5.svg'
 

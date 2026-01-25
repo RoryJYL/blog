@@ -1,6 +1,6 @@
 import MainLayout from '@/app/components/main-layout'
 import { PostList } from '@/app/components/post-list'
-import { getAllThoughtsInfo, getThought } from '@/lib/contentplayerUtils'
+import { getAllThoughtsInfo, getThought } from '@/lib/contentplayer-utils'
 import { notFound } from 'next/navigation'
 
 type ThoughtPageProps = {

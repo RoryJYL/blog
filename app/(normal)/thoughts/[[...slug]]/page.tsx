@@ -4,7 +4,7 @@ import {
   THOUGHT_PAGE_SIZE,
   getThoughts,
   getTotalThoughtCount,
-} from '@/lib/contentplayerUtils'
+} from '@/lib/contentplayer-utils'
 
 type PostPageProps = {
   params: { slug?: string[] }

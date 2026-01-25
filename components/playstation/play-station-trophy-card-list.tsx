@@ -1,7 +1,7 @@
 'use client'
 
 import { useOutsideClick } from '@/hooks/use-outside-click'
-import type { Game, TrophyDetail } from '@/lib/playstationTypes'
+import type { Game, TrophyDetail } from '@/lib/playstation-types'
 import dayjs from 'dayjs'
 import {
   AnimatePresence,

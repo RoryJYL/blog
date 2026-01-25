@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { cn } from '@/lib/tailwindUtils'
+import { cn } from '@/lib/tailwind-utils'
 import type { Thought } from 'contentlayer/generated'
 import dayjs from 'dayjs'
 import { useMDXComponent } from 'next-contentlayer/hooks'

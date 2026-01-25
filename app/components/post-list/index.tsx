@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { getAllPostsInfo, getAllThoughtsInfo } from '@/lib/contentplayerUtils'
-import { cn } from '@/lib/tailwindUtils'
+import { getAllPostsInfo, getAllThoughtsInfo } from '@/lib/contentplayer-utils'
+import { cn } from '@/lib/tailwind-utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
