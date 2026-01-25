@@ -64,83 +64,7 @@ export default function PlayStationTrophyCardList({
       </AnimatePresence>
       <AnimatePresence>
         {active && typeof active === 'object' ? (
-          // <div className="fixed inset-0 grid place-items-center z-[100]">
-          //   <motion.button
-          //     key={`button-${active.title}-${id}`}
-          //     layout
-          //     initial={{
-          //       opacity: 0,
-          //     }}
-          //     animate={{
-          //       opacity: 1,
-          //     }}
-          //     exit={{
-          //       opacity: 0,
-          //       transition: {
-          //         duration: 0.05,
-          //       },
-          //     }}
-          //     className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
-          //     onClick={() => setActive(null)}
-          //   >
-          //     <CloseIcon />
-          //   </motion.button>
-          //   <motion.div
-          //     layoutId={`card-${active.title}-${id}`}
-          //     ref={ref}
-          //     className="relative w-full max-w-[500px] h-[90%] flex flex-col bg-secondary rounded-xl overflow-hidden"
-          //   >
-          //     <motion.div
-          //       layoutId={`image-${active.title}-${id}`}
-          //       className="absolute top-0 left-0 right-0"
-          //     >
-          //       <Image
-          //         width={200}
-          //         height={200}
-          //         src={active.iconUrl}
-          //         alt={active.title}
-          //         className="w-full h-72 rounded-tr-lg rounded-tl-lg object-cover"
-          //       />
-          //       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-secondary h-[35%]" />
-          //     </motion.div>
-
-          //     <div className="px-4 pb-4 relative pt-80 h-100 overflow-auto">
-          //       <motion.div
-          //         layoutId={`title-${active.title}-${id}`}
-          //         className="font-bold text-lg mb-1"
-          //       >
-          //         {active.title}
-          //       </motion.div>
-          //       <motion.div
-          //         layoutId={`trophies-${active.title}-${id}`}
-          //         className="flex items-center gap-2"
-          //       >
-          //         {showTrophies.map((trophy) => (
-          //           <Trophy
-          //             key={trophy}
-          //             type={trophy}
-          //             count={active.earnedTrophies[trophy]}
-          //           />
-          //         ))}
-          //       </motion.div>
-          //       <motion.div
-          //         layout
-          //         initial={{ opacity: 0 }}
-          //         animate={{ opacity: 1 }}
-          //         exit={{ opacity: 0 }}
-          //         className="h-fit pb-10 flex flex-col items-start gap-4 overflow-auto"
-          //       >
-          //         {cards[0].content()}
-          //         {cards[0].content()}
-          //         {cards[0].content()}
-          //         {cards[0].content()}
-          //         {cards[0].content()}
-          //       </motion.div>
-          //     </div>
-          //   </motion.div>
-          // </div>
-          // <ListCard active={active} id={id} onClose={() => setActive(null)} />
-          <div className="fixed inset-0 grid place-items-center z-[100]">
+          <div className="fixed inset-0 grid place-items-center z-100">
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
@@ -188,7 +112,7 @@ export default function PlayStationTrophyCardList({
                   src={game.iconUrl}
                   alt={game.title}
                   fill
-                  className="object-cover blur"
+                  className="object-cover blur-sm"
                 />
               )}
               <Image
@@ -239,17 +163,9 @@ function ListCard({ active, id }: { active: Game; id: string }) {
   const { scrollY } = useScroll({ container: scrollContainer })
   const stop = useTransform(scrollY, [0, 288], [35, 0])
   const bg = useMotionTemplate`
-    linear-gradient(transparent, hsl(var(--secondary)) ${stop}%)
+    linear-gradient(transparent, var(--color-secondary) ${stop}%)
   `
   const paddingTop = useTransform(scrollY, [0, 288], [0, 16])
-  const showPossibleSpoilerTrophies = usePlaystationStore(
-    (state) => state.showPossibleSpoilerTrophies,
-  )
-  const setShowPossibleSpoilerTrophies = usePlaystationStore(
-    (state) => state.setShowPossibleSpoilerTrophies,
-  )
-
-  console.log(active)
 
   return (
     <>
@@ -268,7 +184,7 @@ function ListCard({ active, id }: { active: Game; id: string }) {
 
       <motion.div
         ref={scrollContainer}
-        className="px-4 pb-4 relative h-100 overflow-auto"
+        className="px-4 pb-4 relative overflow-auto"
         style={{ background: bg }}
       >
         <motion.div

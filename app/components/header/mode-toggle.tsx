@@ -35,7 +35,7 @@ export function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="cursor-pointer">
           <Icon
             icon="lucide:sun"
             className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
@@ -51,7 +51,7 @@ export function ModeToggle() {
         {menuItems.map((item) => (
           <DropdownMenuItem
             className={cn(
-              'flex space-x-2',
+              'flex space-x-2 cursor-pointer',
               theme === item.value && 'bg-gray-200 dark:bg-gray-700',
             )}
             key={item.value}

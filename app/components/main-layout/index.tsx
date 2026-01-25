@@ -16,7 +16,7 @@ export default function MainLayout({ left, main, right }: MainLayoutProps) {
           'xl:grid-cols-balanced-wide',
         )}
       >
-        <div className="order-none">{main}</div>
+        <div className="order-0">{main}</div>
         <aside className="-order-1">{left}</aside>
         <aside className="order-1 hidden xl:block">{right}</aside>
       </div>

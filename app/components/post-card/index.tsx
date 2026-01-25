@@ -45,14 +45,13 @@ export function PostCard({ post, isFirst = false }: PostCardProps) {
             <span>{dayjs(date).format('YYYY-MM-DD')}</span>
           </div>
           <div>
-            <Link href={url}>
-              <Button
-                className="font-normal text-primary/80 hover:text-primary/95 transition"
-                variant="link"
-              >
-                继续阅读
-              </Button>
-            </Link>
+            <Button
+              className="font-normal text-primary/80 hover:text-primary/95 transition"
+              variant="link"
+              asChild
+            >
+              <Link href={url}>继续阅读</Link>
+            </Button>
           </div>
         </div>
       </CardContent>

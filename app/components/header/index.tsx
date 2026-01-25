@@ -26,11 +26,9 @@ export function Header() {
     <nav className="xl:px-0 py-2 px-4 bg-background">
       <div className="mx-auto flex items-center xl:max-w-7xl md:max-w-5xl">
         <h1>
-          <Link href="/">
-            <Button variant="ghost">
-              <span>Rory's Blog</span>
-            </Button>
-          </Link>
+          <Button variant="ghost" asChild>
+            <Link href="/">Rory's Blog</Link>
+          </Button>
         </h1>
         <div className="mr-auto flex">
           <Navigation />
@@ -47,9 +45,9 @@ function Navigation() {
   return (
     <>
       {navLinks.map((link) => (
-        <Link href={link.href} key={link.href}>
-          <Button variant="ghost">{link.title}</Button>
-        </Link>
+        <Button variant="ghost" key={link.href} asChild>
+          <Link href={link.href}>{link.title}</Link>
+        </Button>
       ))}
     </>
   )

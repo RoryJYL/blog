@@ -14,7 +14,7 @@ export function BadgeList({ badges }: TagListProps) {
           <div
             className={cn(
               badgeVariants({
-                variant: badge.isPrimary ? 'secondary' : 'outline',
+                variant: badge.isPrimary ? 'secondary' : 'outline-solid',
               }),
               'text-opacity-60 hover:text-opacity-85 transition',
             )}

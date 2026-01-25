@@ -1,18 +1,13 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 import type { Game, ProfileSummary } from '@/lib/playstationTypes'
 import dayjs from 'dayjs'
 import Image from 'next/image'
-import { TrophyIcon } from './trophy'
+import { usePlaystationStore } from '../playstation-store-provider'
 import { PlatformIcon } from './platform-icon'
 import PlayStationTrophyCardList from './play-station-trophy-card-list'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { usePlaystationStore } from '../playstation-store-provider'
+import { TrophyIcon } from './trophy'
 
 interface PlayStationTrophiesProps {
   profile: ProfileSummary
@@ -108,7 +103,12 @@ function GameCard({ game }: { game: Game }) {
     <div className="flex gap-2 border rounded-md p-4 items-center cursor-default">
       <div className="w-20 h-20 relative shrink-0 overflow-hidden rounded">
         {platform !== 'PS5' && (
-          <Image src={iconUrl} alt={title} fill className="object-cover blur" />
+          <Image
+            src={iconUrl}
+            alt={title}
+            fill
+            className="object-cover blur-sm"
+          />
         )}
         <Image src={iconUrl} alt={title} fill className="object-contain" />
         <PlatformIcon

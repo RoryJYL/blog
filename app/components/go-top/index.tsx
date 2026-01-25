@@ -23,14 +23,14 @@ export default function GoTop({ toc }: GoTopProps) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={cn('fixed bottom-4 right-7 z-[100] space-y-2')}>
+    <div className={cn('fixed bottom-4 right-7 z-100 space-y-2')}>
       {toc && (
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <div
               className={cn(
                 'block md:hidden cursor-pointer',
-                'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow',
+                'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow-sm',
                 'hover:text-sky-500 transition-colors',
               )}
             >
@@ -52,7 +52,7 @@ export default function GoTop({ toc }: GoTopProps) {
       )}
       <Link
         className={cn(
-          'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow',
+          'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow-sm',
           'hover:text-sky-500 transition-colors',
         )}
         href="#"
