@@ -13,18 +13,16 @@ export default async function Home() {
   return (
     <div className="px-4 min-h-[calc(100vh-56px-168px)] flex flex-col">
       <div className="flex-1 space-y-2 mx-auto px-4 pt-4 pb-10 xl:max-w-7xl md:max-w-5xl flex flex-col justify-between">
-        <div
-          className={cn(
-            'prose prose-slate dark:prose-invert max-w-none',
-            'prose-a:transition-opacity prose-a:underline-offset-2 hover:prose-a:opacity-75 dark:hover:prose-a:opacity-85',
-          )}
-        >
+        <div className={cn('prose prose-slate dark:prose-invert max-w-none')}>
           <h1 className="text-3xl font-bold mb-4">Hello, I'm Rory</h1>
           <p>我是一个热爱游戏的软件工程师，欢迎来到我的博客。</p>
           <p>在这里你可以找到一些可能对你有用的东西，以及我的碎碎念。</p>
           <p>
             你可以从这里开始：
-            <Link href="/thoughts">
+            <Link
+              href="/thoughts"
+              className="transition-opacity underline-offset-2 hover:opacity-75 dark:hover:opacity-85"
+            >
               <span>絮语</span>
             </Link>
           </p>
