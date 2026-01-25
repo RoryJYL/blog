@@ -14,6 +14,7 @@ export interface Game {
   earnedTrophies: TrophyCount
   platform: Platform
   progress: number
+  npCommunicationId: string
   trophyDetails: {
     trophies: TrophyDetail[]
     updatedAt: string

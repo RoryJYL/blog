@@ -52,11 +52,6 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
           </Label>
         </div>
         <PlayStationTrophyCardList games={profile.platinumGames} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {profile.platinumGames.map((game) => (
-            <GameCard key={game.title} game={game} />
-          ))}
-        </div>
       </CardContent>
     </Card>
   )
