@@ -9,7 +9,6 @@ import { PlaystationStoreProvider } from '@/components/playstation-store-provide
 
 export const metadata: Metadata = {
   // 整个站点共用的 metadata
-  // viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
   formatDetection: {
     telephone: false,
   },
