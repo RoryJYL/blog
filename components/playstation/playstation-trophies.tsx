@@ -6,6 +6,7 @@ import { Switch } from '@/components/ui/switch'
 import type { Game, ProfileSummary } from '@/lib/playstation-types'
 import dayjs from 'dayjs'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { usePlaystationStore } from '../playstation-store-provider'
 import { PlatformIcon } from './platform-icon'
 import PlayStationTrophyCardList from './play-station-trophy-card-list'
@@ -16,12 +17,17 @@ interface PlayStationTrophiesProps {
 }
 
 export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
+  const [mounted, setMounted] = useState(false)
   const showPossibleSpoilerTrophies = usePlaystationStore(
     (state) => state.showPossibleSpoilerTrophies,
   )
   const setShowPossibleSpoilerTrophies = usePlaystationStore(
     (state) => state.setShowPossibleSpoilerTrophies,
   )
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <Card>
@@ -41,17 +47,26 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
       </CardHeader>
       <CardContent>
         <div className="flex items-center mb-2">
-          <Switch
-            defaultChecked={showPossibleSpoilerTrophies}
-            id="show-possible-spoiler-trophies"
-            className="data-[state=unchecked]:bg-neutral-700 data-[state=checked]:bg-primary/50 scale-75 origin-left"
-            onCheckedChange={(checked) => {
-              setShowPossibleSpoilerTrophies(checked)
-            }}
-          />
-          <Label htmlFor="show-possible-spoiler-trophies" className="-ml-1">
-            显示可能剧透的奖杯
-          </Label>
+          {!mounted ? (
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-11 bg-neutral-700 rounded-full animate-pulse scale-75 origin-left" />
+              <div className="h-4 w-32 bg-neutral-700 rounded animate-pulse -ml-3" />
+            </div>
+          ) : (
+            <>
+              <Switch
+                checked={showPossibleSpoilerTrophies}
+                id="show-possible-spoiler-trophies"
+                className="data-[state=unchecked]:bg-neutral-700 data-[state=checked]:bg-primary/50 scale-75 origin-left"
+                onCheckedChange={(checked) => {
+                  setShowPossibleSpoilerTrophies(checked)
+                }}
+              />
+              <Label htmlFor="show-possible-spoiler-trophies" className="-ml-1">
+                显示可能剧透的奖杯
+              </Label>
+            </>
+          )}
         </div>
         <PlayStationTrophyCardList games={profile.platinumGames} />
       </CardContent>
