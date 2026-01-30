@@ -2,7 +2,7 @@
 
 import { useOutsideClick } from '@/hooks/use-outside-click'
 import type { Game, TrophyDetail } from '@/lib/playstation-types'
-import dayjs from 'dayjs'
+import { Icon } from '@iconify/react'
 import {
   AnimatePresence,
   motion,
@@ -15,7 +15,6 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { usePlaystationStore } from '../playstation-store-provider'
 import { PlatformIcon } from './platform-icon'
 import { TrophyIcon } from './trophy'
-import { Icon } from '@iconify/react'
 
 const showTrophies = ['platinum', 'gold', 'silver', 'bronze'] as const
 
@@ -149,7 +148,7 @@ export default function PlayStationTrophyCardList({
                 </motion.div>
               </div>
               <div className="text-sm text-muted-foreground">
-                {dayjs(game.earnedDate).format('YYYY-MM-DD')}
+                {game.earnedDate.split('T')[0]}
               </div>
             </div>
           </motion.div>
@@ -253,7 +252,7 @@ function TrophyItem({ trophy }: { trophy: TrophyDetail }) {
           </div>
         </div>
         <div className="text-sm text-muted-foreground">
-          {dayjs(trophy.earnedDateTime).format('YYYY-MM-DD')}
+          {trophy.earnedDateTime.split('T')[0]}
         </div>
       </div>
       <Image
