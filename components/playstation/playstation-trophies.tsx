@@ -60,10 +60,6 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
 function TrophiesSummary({ profile }: { profile: ProfileSummary }) {
   const trophiesSummary = [
     {
-      type: 'default',
-      count: profile.totalTrophies,
-    },
-    {
       type: 'platinum',
       count: profile.platinumTrophies,
     },
