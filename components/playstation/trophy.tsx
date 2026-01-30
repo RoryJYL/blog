@@ -1,7 +1,7 @@
+import type { TrophyType } from '@/lib/playstation-types'
 import { cn } from '@/lib/tailwind-utils'
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
-import type { TrophyType } from '@/lib/playstation-types'
 
 export interface TrophyIconImageProps
   extends React.HTMLAttributes<HTMLImageElement> {

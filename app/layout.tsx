@@ -3,9 +3,9 @@ import { Header } from '@app/components/header'
 import type { Metadata } from 'next'
 import { memo } from 'react'
 import './globals.css'
+import { PlaystationStoreProvider } from '@/components/playstation-store-provider'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Footer } from './components/footer'
-import { PlaystationStoreProvider } from '@/components/playstation-store-provider'
 
 export const metadata: Metadata = {
   // 整个站点共用的 metadata
