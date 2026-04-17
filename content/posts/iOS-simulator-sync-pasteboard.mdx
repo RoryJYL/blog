@@ -1,0 +1,55 @@
+---
+title: iOS 模拟器共享剪贴板
+date: 2026-04-17 11:20:00
+category: 实用工具
+tags:
+  - Xcode
+  - iOS Simulator
+headerImage: 'https://ab84760.webp.li/blog/iOS-simulator-sync-pasteboard.png'
+---
+
+在一个普通的一天，我决定尝试一下 iOS App 开发，也是因为公司需要，所以安装了 XCode 和 iOS Simulator，一切顺利，直到——我想粘贴一段 URL 到模拟器里。
+
+**It's not working.**
+
+{/* more */}
+
+## TL;DR
+
+Xcode 的 develop tools 路径没配好，需要指向正确的：
+`sudo code-select -s /Applications/Xcode.app/Contents/Developer`
+
+## 和 AI 的激情讨论
+
+当然，我首先尝试把 Simulator 自带的同步剪贴板功能打开了，就在 `Edit -> Automatically Sync Pasteboard`，但是这个选项默认就是打开的。虽然我不太相信 Apple 的工程师会犯这种低级错误，我还是关掉选项后重新打开了，如我所料，并没有用。
+
+当我直接问 OPUS 我的 Simulator 和 MacOS 的剪贴板不能共享时，他直接说这是一个已知问题，然后说了一堆解决方法。其中一个是让我使用 `simctl`。但是直觉告诉我这件事情并没有那么负责，总不能每次粘贴文本都要切到终端敲命令吧。
+
+但是我也尝试了一下，发现 simctl 都找不到。这时候 OPUS 好像意识到了什么
+
+> simctl 找不到，说明 Xcode 的 developer tools 路径没配好。
+> 先看当前指向哪里
+> `xcode-select -p`
+>
+> 通常有两种情况：
+>
+> 如果输出是 `/Library/Developer/CommandLineTools`（指向了 CLI tools 而非完整 Xcode）：
+> `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`
+>
+> 如果 Xcode 装在别的路径，先找到它：
+> `mdfind "kMDItemCFBundleIdentifier == com.apple.dt.Xcode" 2>/dev/null`
+>
+> 然后 -s 指过去。
+>
+> 切换完之后重试：
+> `xcrun simctl pbcopy booted <<< "我要输出的文本"`
+
+我也意识到了什么，可能就是 `Xcode` 的指向问题导致同步不到我的剪贴板。
+
+于是我运行了他给我的指令，发现确实是第一种情况。更改指向之后，当我回到浏览器，`Cmd + V`，心情顿时舒畅了。
+
+## 总结
+
+如果你也像我一样，在安装 Xcode 之前就安装过 Xcode Command Line Tools，比如装了 Karabiner-Elements 会自动安装。那么你很可能也会遇到这个问题。
+
+最后，AI 真好用。
