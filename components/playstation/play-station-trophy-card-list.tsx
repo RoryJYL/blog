@@ -68,7 +68,7 @@ export default function PlayStationTrophyCardList({
             <motion.div
               layoutId={`card-${active.npCommunicationId}-${id}`}
               ref={ref}
-              className="relative w-[95%] max-w-[500px] h-[85%] md:h-[90%] flex flex-col rounded-xl overflow-hidden"
+              className="relative w-[95%] max-w-125 h-[85%] md:h-[90%] flex flex-col rounded-xl overflow-hidden"
             >
               <motion.button
                 key={`button-${active.npCommunicationId}-${id}`}
@@ -123,7 +123,7 @@ export default function PlayStationTrophyCardList({
               />
               <PlatformIcon
                 platform={game.platform}
-                className="absolute bottom-0 left-0 right-0 w-full h-[14px] bg-foreground/80 text-background flex items-center justify-center"
+                className="absolute bottom-0 left-0 right-0 w-full h-3.5 bg-foreground/80 text-background flex items-center justify-center"
               />
             </motion.div>
             <div className="flex flex-col justify-between h-full overflow-hidden">
@@ -230,6 +230,10 @@ function TrophyItem({ trophy }: { trophy: TrophyDetail }) {
   const showPossibleSpoilerTrophies = usePlaystationStore(
     (state) => state.showPossibleSpoilerTrophies,
   )
+
+  if (!trophy.earned || !trophy.earnedDateTime) {
+    return null
+  }
 
   if (!showPossibleSpoilerTrophies && trophy.trophyHidden) {
     return null

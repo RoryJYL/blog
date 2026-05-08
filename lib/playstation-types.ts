@@ -42,8 +42,8 @@ export interface TrophyDetail {
   trophyDetail: string
   trophyIconUrl: string
   trophyGroupId: string
-  earned: boolean
-  earnedDateTime: string
+  earned?: boolean
+  earnedDateTime?: string
   trophyRare: number
   trophyEarnedRate: string
 }
