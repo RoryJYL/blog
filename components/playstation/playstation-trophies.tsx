@@ -51,7 +51,7 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
             显示可能剧透的奖杯
           </Label>
         </div>
-        <PlayStationTrophyCardList games={profile.platinumGames} />
+        <PlayStationTrophyCardList games={profile.platinumGames ?? []} />
       </CardContent>
     </Card>
   )

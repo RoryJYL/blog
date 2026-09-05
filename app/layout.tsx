@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { memo } from 'react'
 import './globals.css'
 import { PlaystationStoreProvider } from '@/components/playstation-store-provider'
+import { SteamStoreProvider } from '@/components/steam-store-provider'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Footer } from './components/footer'
 
@@ -31,11 +32,13 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           disableTransitionOnChange
         >
           <PlaystationStoreProvider>
-            <TooltipProvider delayDuration={300}>
-              <Header />
-              {children}
-              <Footer />
-            </TooltipProvider>
+            <SteamStoreProvider>
+              <TooltipProvider delayDuration={300}>
+                <Header />
+                {children}
+                <Footer />
+              </TooltipProvider>
+            </SteamStoreProvider>
           </PlaystationStoreProvider>
         </ThemeProvider>
       </body>

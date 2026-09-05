@@ -17,20 +17,20 @@ const navLinks: { title: string; href: string; description?: string }[] = [
   },
   {
     title: '游戏',
-    href: '/gamer-profile',
+    href: '/gamer-profile/playstation',
   },
 ]
 
 export function Header() {
   return (
     <nav className="xl:px-0 py-2 px-4 bg-background">
-      <div className="mx-auto flex items-center xl:max-w-7xl md:max-w-5xl">
+      <div className="mx-auto flex max-[420px]:flex-wrap items-center max-[420px]:justify-between justify-start xl:max-w-7xl md:max-w-5xl">
         <h1>
           <Button variant="ghost" asChild>
             <Link href="/">Rory's Blog</Link>
           </Button>
         </h1>
-        <div className="mr-auto flex">
+        <div className="max-[420px]:order-last flex w-full order-0 md:mr-auto md:w-auto overflow-x-auto">
           <Navigation />
         </div>
         <div>

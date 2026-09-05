@@ -4,7 +4,8 @@ export async function getPlayStationProfile(): Promise<ProfileSummary> {
   const response = await fetch(
     `${process.env.PSN_API_URL}/api/profile-summary`,
     {
-      next: { revalidate: false },
+      // 构建时永远取最新数据，避免 Next fetch 缓存的陈旧数据（revalidate:false 会永久缓存）
+      cache: 'no-store',
     },
   )
 

@@ -18,6 +18,7 @@ pages_build_output_dir = "out"
 # - https://developers.cloudflare.com/pages/functions/bindings/#secrets
 [vars]
 PSN_API_URL = "https://playstation-network-api.fw45rqnzhz.workers.dev"
+STEAM_API_URL = "https://steam-api.fw45rqnzhz.workers.dev"
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#workers-ai

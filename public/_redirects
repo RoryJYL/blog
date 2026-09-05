@@ -1,0 +1,3 @@
+# Cloudflare Pages 重定向规则（部署时由边缘节点执行，真实 HTTP 301）
+# /gamer-profile 已被 Google 收录，永久重定向到新路径
+/gamer-profile /gamer-profile/playstation 301

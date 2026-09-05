@@ -15,6 +15,10 @@ const nextConfig = withContentlayer({
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:8787'
         : 'https://playstation-network-api.fw45rqnzhz.workers.dev',
+    STEAM_API_URL:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:8788'
+        : 'https://steam-api.fw45rqnzhz.workers.dev',
   },
   images: {
     unoptimized: true,
@@ -38,6 +42,14 @@ const nextConfig = withContentlayer({
       {
         protocol: 'https',
         hostname: 'image.api.playstation.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.steamstatic.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.steampowered.com',
       },
     ],
   },
