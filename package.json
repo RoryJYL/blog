@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build && next-sitemap",
     "start": "next start",
-    "format": "biome check --write app/** components/** lib/**",
+    "format": "biome check --write .",
     "pages:build": "npx @cloudflare/next-on-pages",
     "preview": "npm run pages:build && wrangler pages dev",
     "deploy": "npm run pages:build && wrangler pages deploy",
@@ -56,7 +56,7 @@
     "zustand": "^5.0.10"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.2",
+    "@biomejs/biome": "^2.5.15",
     "@cloudflare/next-on-pages": "1",
     "@cloudflare/workers-types": "^4.20240924.0",
     "@svgr/webpack": "^8.1.0",
