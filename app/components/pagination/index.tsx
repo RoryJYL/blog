@@ -1,4 +1,6 @@
-import { Button, buttonVariants } from '@/components/ui/button'
+import Link from 'next/link'
+import { useCallback } from 'react'
+import { buttonVariants } from '@/components/ui/button'
 import {
   PaginationContent,
   PaginationEllipsis,
@@ -7,8 +9,6 @@ import {
   Pagination as PaginationUI,
 } from '@/components/ui/pagination'
 import { cn } from '@/lib/tailwind-utils'
-import Link from 'next/link'
-import { useCallback } from 'react'
 
 type PaginationProps = {
   totalPages: number

@@ -1,5 +1,7 @@
 'use client'
 
+import { Icon } from '@iconify/react'
+import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -8,8 +10,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/tailwind-utils'
-import { Icon } from '@iconify/react'
-import { useTheme } from 'next-themes'
 
 const menuItems = [
   {

@@ -1,7 +1,5 @@
 import { allPosts, allThoughts } from 'contentlayer/generated'
-import { type SupportedLanguages, readingTime } from 'reading-time-estimator'
-import { remark } from 'remark'
-import { visit } from 'unist-util-visit'
+import { readingTime, type SupportedLanguages } from 'reading-time-estimator'
 
 export const POST_PAGE_SIZE = 5
 export const THOUGHT_PAGE_SIZE = 10
@@ -161,10 +159,6 @@ export function getAllThoughtsInfo<
     }
     return result
   })
-}
-
-function slugify(text: string) {
-  return text.toString().toLowerCase().trim().replace(/\s+/g, '-')
 }
 
 /**

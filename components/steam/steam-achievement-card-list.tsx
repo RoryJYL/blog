@@ -1,7 +1,7 @@
 'use client'
 
-import { useOutsideClick } from '@/hooks/use-outside-click'
-import type { SteamAchievementDetail, SteamGame } from '@/lib/steam-types'
+import Image from 'next/image'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import {
   AnimatePresence,
@@ -10,8 +10,8 @@ import {
   useScroll,
   useTransform,
 } from 'motion/react'
-import Image from 'next/image'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useOutsideClick } from '@/hooks/use-outside-click'
+import type { SteamAchievementDetail, SteamGame } from '@/lib/steam-types'
 import { useSteamStore } from '../steam-store-provider'
 
 interface SteamAchievementCardListProps {
@@ -217,7 +217,9 @@ function ListCard({ active, id }: { active: SteamGame; id: string }) {
 
 function AchievementItem({
   achievement,
-}: { achievement: SteamAchievementDetail }) {
+}: {
+  achievement: SteamAchievementDetail
+}) {
   const showPossibleSpoilerAchievements = useSteamStore(
     (state) => state.showPossibleSpoilerAchievements,
   )

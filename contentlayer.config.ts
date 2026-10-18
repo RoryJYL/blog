@@ -3,15 +3,15 @@ import {
   defineNestedType,
   makeSource,
 } from 'contentlayer/source-files'
+import GithubSlugger from 'github-slugger'
+import type { Heading, PhrasingContent, Root } from 'mdast'
 import { readingTime, type SupportedLanguages } from 'reading-time-estimator'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
 import remarkMdx from 'remark-mdx'
+import remarkParse from 'remark-parse'
+import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
-import GithubSlugger from 'github-slugger'
-import type { Heading, PhrasingContent, Root } from 'mdast'
 
 // 目录项类型
 const TocItem = defineNestedType(() => ({

@@ -1,10 +1,10 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import type { Post } from 'contentlayer/generated'
+import dayjs from 'dayjs'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { getPostBadges } from '@/lib/post-utils'
-import type { Post } from 'contentlayer/generated'
-import dayjs from 'dayjs'
-import Image from 'next/image'
-import Link from 'next/link'
 import { BadgeList } from '../badge-list'
 
 type PostCardProps = {
@@ -13,7 +13,7 @@ type PostCardProps = {
 }
 
 export function PostCard({ post, isFirst = false }: PostCardProps) {
-  const { headerImage, title, url, excerpt, tags, date, category } = post
+  const { headerImage, title, url, excerpt, date } = post
 
   const badges = getPostBadges(post)
 

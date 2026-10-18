@@ -1,9 +1,8 @@
 'use client'
 
-import { type ReactNode, createContext, useContext, useState } from 'react'
+import { createContext, type ReactNode, useContext, useState } from 'react'
 import { useStore } from 'zustand'
-
-import { type SteamStore, createSteamStore } from '@/store/steam-store'
+import { createSteamStore, type SteamStore } from '@/store/steam-store'
 
 export type SteamStoreApi = ReturnType<typeof createSteamStore>
 

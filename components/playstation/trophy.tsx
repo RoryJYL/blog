@@ -1,7 +1,7 @@
+import Image from 'next/image'
+import { Icon } from '@iconify/react'
 import type { TrophyType } from '@/lib/playstation-types'
 import { cn } from '@/lib/tailwind-utils'
-import { Icon } from '@iconify/react'
-import Image from 'next/image'
 
 export interface TrophyIconImageProps
   extends React.HTMLAttributes<HTMLImageElement> {
@@ -54,12 +54,7 @@ export function TrophyIcon({
   )
 }
 
-export function TrophyIconImage({
-  className,
-  type,
-  count,
-  ...props
-}: TrophyIconImageProps) {
+export function TrophyIconImage({ className, type }: TrophyIconImageProps) {
   return (
     <Image src={TROPHY_ICONS_MAP[type]} alt={type} fill className={className} />
   )

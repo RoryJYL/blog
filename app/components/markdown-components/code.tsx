@@ -1,8 +1,8 @@
 'use client'
 
-import hljs from 'highlight.js'
 import type React from 'react'
 import { useEffect, useRef } from 'react'
+import hljs from 'highlight.js'
 
 export function Code(props: React.PropsWithChildren<{ className?: string }>) {
   const { children } = props

@@ -1,7 +1,10 @@
 export function Anchor({
   href,
   children,
-}: { href?: string; children?: React.ReactNode }) {
+}: {
+  href?: string
+  children?: React.ReactNode
+}) {
   const isExternal = href?.startsWith('http')
 
   return (

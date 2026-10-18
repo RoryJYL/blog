@@ -1,7 +1,7 @@
+import { notFound } from 'next/navigation'
 import MainLayout from '@/app/components/main-layout'
 import { PostList } from '@/app/components/post-list'
-import { getAllThoughtsInfo, getThought } from '@/lib/contentplayer-utils'
-import { notFound } from 'next/navigation'
+import { getThought } from '@/lib/contentplayer-utils'
 
 type ThoughtPageProps = {
   params: { slug: string }

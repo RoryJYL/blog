@@ -1,9 +1,9 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { cn } from '@/lib/tailwind-utils'
+import Link from 'next/link'
 import type { Thought } from 'contentlayer/generated'
 import dayjs from 'dayjs'
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import Link from 'next/link'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { cn } from '@/lib/tailwind-utils'
 import { mdxComponents } from '../markdown-components/mdx-components'
 
 export function ThoughtCard({ thought }: { thought: Thought }) {

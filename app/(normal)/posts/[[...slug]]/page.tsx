@@ -1,9 +1,9 @@
 import { Pagination } from '@/app/components/pagination'
 import { PostCard } from '@/app/components/post-card'
 import {
-  POST_PAGE_SIZE,
   getPosts,
   getTotalPostCount,
+  POST_PAGE_SIZE,
 } from '@/lib/contentplayer-utils'
 
 type PostsPageProps = {

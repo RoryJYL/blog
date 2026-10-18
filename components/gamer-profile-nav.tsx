@@ -1,8 +1,8 @@
 'use client'
 
-import { cn } from '@/lib/tailwind-utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/tailwind-utils'
 
 const items = [
   { href: '/gamer-profile/playstation', label: 'PlayStation' },

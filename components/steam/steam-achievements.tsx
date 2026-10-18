@@ -1,14 +1,14 @@
 'use client'
 
+import Image from 'next/image'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import type { SteamProfileSummary } from '@/lib/steam-types'
-import Image from 'next/image'
 import { useSteamStore } from '../steam-store-provider'
 import { AchievementSummaryIcon, PerfectGamesIcon } from './achievement'
 import SteamAchievementCardList from './steam-achievement-card-list'
-import Link from 'next/link'
 
 interface SteamAchievementsProps {
   profile: SteamProfileSummary

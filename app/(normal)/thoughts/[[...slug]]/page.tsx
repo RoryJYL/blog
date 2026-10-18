@@ -1,9 +1,9 @@
 import { Pagination } from '@/app/components/pagination'
 import { ThoughtCard } from '@/app/components/thought-card'
 import {
-  THOUGHT_PAGE_SIZE,
   getThoughts,
   getTotalThoughtCount,
+  THOUGHT_PAGE_SIZE,
 } from '@/lib/contentplayer-utils'
 
 type PostPageProps = {

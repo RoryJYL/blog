@@ -1,10 +1,10 @@
+import { notFound } from 'next/navigation'
+import dayjs from 'dayjs'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 import { mdxComponents } from '@/app/components/markdown-components/mdx-components'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { getAllThoughtsInfo, getThought } from '@/lib/contentplayer-utils'
 import { cn } from '@/lib/tailwind-utils'
-import dayjs from 'dayjs'
-import { useMDXComponent } from 'next-contentlayer/hooks'
-import { notFound } from 'next/navigation'
 
 type ThoughtPageProps = {
   params: { slug: string }

@@ -1,11 +1,10 @@
 'use client'
 
-import { type ReactNode, createContext, useContext, useState } from 'react'
+import { createContext, type ReactNode, useContext, useState } from 'react'
 import { useStore } from 'zustand'
-
 import {
-  type PlaystationStore,
   createPlaystationStore,
+  type PlaystationStore,
 } from '@/store/playstation-store'
 
 export type PlaystationStoreApi = ReturnType<typeof createPlaystationStore>

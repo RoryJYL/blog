@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import { ModeToggle } from './mode-toggle'
 
 const navLinks: { title: string; href: string; description?: string }[] = [

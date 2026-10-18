@@ -1,16 +1,10 @@
+import Image from 'next/image'
 import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import {
-  getAllCategories,
-  getAllTags,
-  getTotalPostCount,
-} from '@/lib/contentplayer-utils'
-import Image from 'next/image'
+import { getTotalPostCount } from '@/lib/contentplayer-utils'
 
 export function Info() {
   const totalPost = getTotalPostCount()
-  const { categories, count: totalCategory } = getAllCategories()
-  const { tags, count: totalTag } = getAllTags()
 
   const contentInfoList = [
     {

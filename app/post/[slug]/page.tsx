@@ -1,3 +1,7 @@
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import dayjs from 'dayjs'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 import { BadgeList } from '@/app/components/badge-list'
 import GoTop from '@/app/components/go-top'
 import { mdxComponents } from '@/app/components/markdown-components/mdx-components'
@@ -5,10 +9,6 @@ import { Card, CardContent } from '@/components/ui/card'
 import { getAllPostSlugs, getPost } from '@/lib/contentplayer-utils'
 import { getPostBadges } from '@/lib/post-utils'
 import { cn } from '@/lib/tailwind-utils'
-import dayjs from 'dayjs'
-import { useMDXComponent } from 'next-contentlayer/hooks'
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
 
 type PostPageProps = {
   params: { slug: string }
@@ -31,7 +31,7 @@ export default function PostPage({ params }: PostPageProps) {
     notFound()
   }
 
-  const { headerImage, date, tags, title, readingTime } = post
+  const { headerImage, date, title, readingTime } = post
 
   const MDXContent = useMDXComponent(post.body.code)
 

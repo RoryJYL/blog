@@ -1,9 +1,8 @@
-import { Info } from '@/app/components/info'
+import { notFound } from 'next/navigation'
 import MainLayout from '@/app/components/main-layout'
 import { PostList } from '@/app/components/post-list'
 import TableOfContents from '@/app/components/toc'
 import { getPost } from '@/lib/contentplayer-utils'
-import { notFound } from 'next/navigation'
 
 type PostPageProps = {
   params: { slug: string }

@@ -1,7 +1,7 @@
 'use client'
 
-import { useOutsideClick } from '@/hooks/use-outside-click'
-import type { Game, TrophyDetail } from '@/lib/playstation-types'
+import Image from 'next/image'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import {
   AnimatePresence,
@@ -10,8 +10,8 @@ import {
   useScroll,
   useTransform,
 } from 'motion/react'
-import Image from 'next/image'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useOutsideClick } from '@/hooks/use-outside-click'
+import type { Game, TrophyDetail } from '@/lib/playstation-types'
 import { usePlaystationStore } from '../playstation-store-provider'
 import { PlatformIcon } from './platform-icon'
 import { TrophyIcon } from './trophy'

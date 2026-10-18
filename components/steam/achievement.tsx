@@ -1,5 +1,5 @@
-import { cn } from '@/lib/tailwind-utils'
 import { Icon } from '@iconify/react'
+import { cn } from '@/lib/tailwind-utils'
 
 export interface AchievementSummaryIconProps
   extends React.HTMLAttributes<HTMLDivElement> {
