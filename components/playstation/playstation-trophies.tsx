@@ -4,16 +4,25 @@ import Image from 'next/image'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import {
+  resolvePlayingGame,
+  usePlaystationPresence,
+} from '@/hooks/use-playstation-presence'
 import type { ProfileSummary } from '@/lib/playstation-types'
 import { usePlaystationStore } from '../playstation-store-provider'
 import PlayStationTrophyCardList from './play-station-trophy-card-list'
+import { PlayingCard } from './playing-card'
 import { TrophyIcon } from './trophy'
 
 interface PlayStationTrophiesProps {
   profile: ProfileSummary
+  apiUrl: string
 }
 
-export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
+export function PlayStationTrophies({
+  profile,
+  apiUrl,
+}: PlayStationTrophiesProps) {
   const showPossibleSpoilerTrophies = usePlaystationStore(
     (state) => state.showPossibleSpoilerTrophies,
   )
@@ -21,23 +30,33 @@ export function PlayStationTrophies({ profile }: PlayStationTrophiesProps) {
     (state) => state.setShowPossibleSpoilerTrophies,
   )
 
+  const presence = usePlaystationPresence(apiUrl)
+  const online = presence?.onlineStatus === 'online'
+  const playing = resolvePlayingGame(presence)
+
   return (
     <Card>
       <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-4 space-y-0">
         <div className="shrink-0 flex items-center gap-2">
-          <Image
-            src={profile.avatarUrl}
-            alt={profile.onlineId}
-            width={36}
-            height={36}
-            className="rounded-full"
-            unoptimized
-          />
+          <div className="relative">
+            <Image
+              src={profile.avatarUrl}
+              alt={profile.onlineId}
+              width={36}
+              height={36}
+              className="rounded-full"
+              unoptimized
+            />
+            {online && (
+              <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
+            )}
+          </div>
           <span>{profile.onlineId}</span>
         </div>
         <TrophiesSummary profile={profile} />
       </CardHeader>
       <CardContent>
+        {playing && <PlayingCard {...playing} />}
         <div className="flex items-center mb-2">
           <Switch
             checked={showPossibleSpoilerTrophies}

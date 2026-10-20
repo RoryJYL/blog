@@ -34,6 +34,29 @@ export interface ProfileSummary {
 
 export type TrophyType = 'platinum' | 'gold' | 'silver' | 'bronze'
 
+export interface PlayingGame {
+  title: string
+  imageUrl: string | null
+  platform: Platform | null
+  titleId: string | null
+}
+
+export interface RecentGame extends Omit<PlayingGame, 'titleId'> {
+  firstPlayedDateTime: string
+  lastPlayedDateTime: string
+  playDuration: string | null
+  titleIds: string[]
+}
+
+export interface Presence {
+  onlineStatus: 'online' | 'offline'
+  availability: string
+  platform: Platform | null
+  lastOnlineDate: string | null
+  game: PlayingGame | null
+  recentGame: RecentGame | null
+  fetchedAt: string
+}
 export interface TrophyDetail {
   trophyId: number
   trophyHidden: boolean

@@ -20,7 +20,10 @@ export default async function GamerProfilePage() {
     <div className="mx-auto px-6 md:px-4 py-6 xl:max-w-7xl md:max-w-5xl md:min-h-[calc(100vh-56px-168px)]">
       <GamerProfileNav />
       {result.ok ? (
-        <PlayStationTrophies profile={result.profile} />
+        <PlayStationTrophies
+          profile={result.profile}
+          apiUrl={process.env.PSN_API_URL ?? ''}
+        />
       ) : (
         <PlatformUnavailable platform="PlayStation" />
       )}
