@@ -20,14 +20,6 @@ export interface TrophyIconProps extends React.HTMLAttributes<HTMLDivElement> {
   count?: number
 }
 
-const trophyColors = {
-  default: 'text-foreground',
-  gold: 'text-[#BB924D]',
-  silver: 'text-[#777777]',
-  bronze: 'text-[#B86942]',
-  platinum: 'text-[#6B7FAE]',
-}
-
 const TROPHY_ICONS_BASE_URL = 'https://ab84760.webp.li/play-station'
 const TROPHY_ICONS_MAP = {
   platinum: `${TROPHY_ICONS_BASE_URL}/platinum.png`,
@@ -42,13 +34,18 @@ export function TrophyIcon({
   count,
   ...props
 }: TrophyIconProps) {
-  const color = trophyColors[type] || trophyColors.default
   return (
     <div
       className={cn('flex items-center gap-1 font-500', className)}
       {...props}
     >
-      <Icon icon="icon-park-solid:trophy" className={color} />
+      {type === 'default' ? (
+        <Icon icon="icon-park-solid:trophy" className="text-foreground" />
+      ) : (
+        <span className="relative size-5 shrink-0">
+          <TrophyIconImage type={type} className="object-contain" />
+        </span>
+      )}
       {count && <span>{count.toLocaleString()}</span>}
     </div>
   )
