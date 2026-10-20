@@ -33,7 +33,7 @@ export function PlayingCard({ game, playDuration }: ResolvedGame) {
           />
         )}
         {/* 桌面把信息压在图上，需要渐变托底；移动端信息在图片下方，不需要 */}
-        <div className="absolute inset-0 hidden bg-gradient-to-t from-black/90 via-black/25 to-transparent sm:block" />
+        <div className="absolute inset-0 hidden bg-linear-to-t from-black/90 via-black/25 to-transparent sm:block" />
       </div>
       <div className="flex min-w-0 flex-col justify-center gap-2 p-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:gap-3 sm:p-6 md:p-8">
         <div className="min-w-0">
