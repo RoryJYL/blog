@@ -1,4 +1,3 @@
-import { GamerProfileNav } from '@/components/gamer-profile-nav'
 import { PlatformUnavailable } from '@/components/platform-unavailable'
 import { SteamAchievements } from '@/components/steam/steam-achievements'
 import { getSteamProfile } from '@/lib/steam-data'
@@ -16,14 +15,12 @@ export default async function GamerProfileSteamPage() {
     () => ({ ok: false as const }),
   )
 
-  return (
-    <div className="mx-auto px-6 md:px-4 pt-1 pb-6 xl:max-w-7xl md:max-w-5xl md:min-h-[calc(100vh-56px-168px)]">
-      <GamerProfileNav />
-      {result.ok ? (
-        <SteamAchievements profile={result.profile} />
-      ) : (
-        <PlatformUnavailable platform="Steam" />
-      )}
-    </div>
+  return result.ok ? (
+    <SteamAchievements
+      profile={result.profile}
+      apiUrl={process.env.STEAM_API_URL ?? ''}
+    />
+  ) : (
+    <PlatformUnavailable platform="Steam" />
   )
 }

@@ -1,17 +1,17 @@
 'use client'
 
 import Image from 'next/image'
+import { Clock, Gamepad2 } from 'lucide-react'
+import { PlayingCard } from '@/components/gamer-profile/playing-card'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import {
-  resolvePlayingGame,
-  usePlaystationPresence,
-} from '@/hooks/use-playstation-presence'
-import type { ProfileSummary } from '@/lib/playstation-types'
+import { usePresence } from '@/hooks/use-presence'
+import { formatIsoDuration } from '@/lib/duration-utils'
+import { resolvePlayingGame } from '@/lib/playstation-presence'
+import type { Presence, ProfileSummary } from '@/lib/playstation-types'
 import { usePlaystationStore } from '../playstation-store-provider'
 import PlayStationTrophyCardList from './play-station-trophy-card-list'
-import { PlayingCard } from './playing-card'
 import { TrophyIcon } from './trophy'
 
 interface PlayStationTrophiesProps {
@@ -30,7 +30,7 @@ export function PlayStationTrophies({
     (state) => state.setShowPossibleSpoilerTrophies,
   )
 
-  const presence = usePlaystationPresence(apiUrl)
+  const presence = usePresence<Presence>(apiUrl)
   const online = presence?.onlineStatus === 'online'
   const playing = resolvePlayingGame(presence)
 
@@ -56,7 +56,22 @@ export function PlayStationTrophies({
         <TrophiesSummary profile={profile} />
       </CardHeader>
       <CardContent>
-        {playing && <PlayingCard {...playing} />}
+        {playing && (
+          <PlayingCard
+            title={playing.title}
+            imageUrl={playing.imageUrl}
+            meta={[
+              { key: 'platform', icon: Gamepad2, text: playing.platform },
+              {
+                key: 'duration',
+                icon: Clock,
+                text: playing.playDuration
+                  ? formatIsoDuration(playing.playDuration)
+                  : null,
+              },
+            ]}
+          />
+        )}
         <div className="flex items-center mb-2">
           <Switch
             checked={showPossibleSpoilerTrophies}

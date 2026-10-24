@@ -1,4 +1,3 @@
-import { GamerProfileNav } from '@/components/gamer-profile-nav'
 import { PlatformUnavailable } from '@/components/platform-unavailable'
 import { PlayStationTrophies } from '@/components/playstation/playstation-trophies'
 import { getPlayStationProfile } from '@/lib/playstation-data'
@@ -16,17 +15,12 @@ export default async function GamerProfilePage() {
     () => ({ ok: false as const }),
   )
 
-  return (
-    <div className="mx-auto px-6 md:px-4 pt-1 pb-6 xl:max-w-7xl md:max-w-5xl md:min-h-[calc(100vh-56px-168px)]">
-      <GamerProfileNav />
-      {result.ok ? (
-        <PlayStationTrophies
-          profile={result.profile}
-          apiUrl={process.env.PSN_API_URL ?? ''}
-        />
-      ) : (
-        <PlatformUnavailable platform="PlayStation" />
-      )}
-    </div>
+  return result.ok ? (
+    <PlayStationTrophies
+      profile={result.profile}
+      apiUrl={process.env.PSN_API_URL ?? ''}
+    />
+  ) : (
+    <PlatformUnavailable platform="PlayStation" />
   )
 }

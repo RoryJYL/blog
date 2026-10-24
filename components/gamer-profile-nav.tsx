@@ -13,7 +13,7 @@ export function GamerProfileNav() {
   const pathname = usePathname()
 
   return (
-    <div className="flex gap-2 mb-4">
+    <div className="flex gap-2 mb-1.5">
       {items.map((item) => {
         const isActive = pathname === item.href
         return (

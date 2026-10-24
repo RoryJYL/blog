@@ -1,19 +1,24 @@
 'use client'
 
 import Image from 'next/image'
-import { Clock, Gamepad2 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { motion } from 'motion/react'
-import type { ResolvedGame } from '@/hooks/use-playstation-presence'
 
-export function PlayingCard({ game, playDuration }: ResolvedGame) {
-  const meta = [
-    { key: 'platform', icon: Gamepad2, text: game.platform },
-    {
-      key: 'duration',
-      icon: Clock,
-      text: playDuration ? formatPlayDuration(playDuration) : null,
-    },
-  ].filter((item) => item.text)
+export interface PlayingCardMeta {
+  key: string
+  icon: LucideIcon
+  /** null 表示这条信息缺失，卡片自己过滤 */
+  text: string | null
+}
+
+interface PlayingCardProps {
+  title: string
+  imageUrl: string | null
+  meta?: PlayingCardMeta[]
+}
+
+export function PlayingCard({ title, imageUrl, meta = [] }: PlayingCardProps) {
+  const items = meta.filter((item) => item.text)
 
   return (
     <motion.div
@@ -23,10 +28,10 @@ export function PlayingCard({ game, playDuration }: ResolvedGame) {
       className="relative mb-4 overflow-hidden rounded-xl border bg-muted"
     >
       <div className="relative aspect-video w-full bg-neutral-900">
-        {game.imageUrl && (
+        {imageUrl && (
           <Image
-            src={game.imageUrl}
-            alt={game.title}
+            src={imageUrl}
+            alt={title}
             fill
             unoptimized
             className="object-cover"
@@ -41,13 +46,13 @@ export function PlayingCard({ game, playDuration }: ResolvedGame) {
             正在玩
           </p>
           <h2 className="mt-1 line-clamp-2 text-xl font-semibold leading-tight text-foreground sm:text-white md:text-3xl">
-            {game.title}
+            {title}
           </h2>
         </div>
 
-        {meta.length > 0 && (
+        {items.length > 0 && (
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted-foreground sm:text-white/70">
-            {meta.map((item) => (
+            {items.map((item) => (
               <span key={item.key} className="flex items-center gap-1.5">
                 <item.icon className="size-3.5 shrink-0" />
                 <span className="font-medium tabular-nums">{item.text}</span>
@@ -58,17 +63,4 @@ export function PlayingCard({ game, playDuration }: ResolvedGame) {
       </div>
     </motion.div>
   )
-}
-
-/** ISO 8601 duration（PT228H56M33S）→ 人话 */
-function formatPlayDuration(iso: string): string {
-  const match = iso.match(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?)?/)
-  const days = Number(match?.[1] ?? 0)
-  const hours = Number(match?.[2] ?? 0)
-  const minutes = Number(match?.[3] ?? 0)
-
-  const totalHours = days * 24 + hours
-  if (totalHours > 0) return `${totalHours} 小时`
-  if (minutes > 0) return `${minutes} 分钟`
-  return '不到 1 分钟'
 }

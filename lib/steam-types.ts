@@ -32,3 +32,19 @@ export interface SteamProfileSummary {
   totalAchievements: number
   perfectGames: SteamGame[]
 }
+
+export interface SteamPlayingGame {
+  /** 非 Steam 快捷方式没有 appId */
+  appId: number | null
+  title: string
+  imageUrl: string | null
+  playtimeMinutes: number | null
+}
+
+export interface SteamPresence {
+  /** 只有 personastate === 1 才是 online，忙碌/离开/打盹都折算成 offline */
+  onlineStatus: 'online' | 'offline'
+  game: SteamPlayingGame | null
+  lastLogoff: string | null
+  fetchedAt: string
+}
