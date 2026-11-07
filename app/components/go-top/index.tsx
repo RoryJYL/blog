@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import {
   Sheet,
@@ -21,6 +21,14 @@ type GoTopProps = {
 
 export default function GoTop({ toc }: GoTopProps) {
   const [open, setOpen] = useState(false)
+  const [showTop, setShowTop] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 300)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <div className={cn('fixed bottom-4 right-7 z-100 space-y-2')}>
@@ -51,9 +59,12 @@ export default function GoTop({ toc }: GoTopProps) {
         </Sheet>
       )}
       <Link
+        aria-hidden={!showTop}
+        tabIndex={showTop ? 0 : -1}
         className={cn(
           'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow-sm',
-          'hover:text-sky-500 transition-colors',
+          'hover:text-sky-500 transition-[opacity,color] duration-200',
+          showTop ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
         href="#"
       >
