@@ -6,16 +6,26 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/tailwind-utils'
 import { mdxComponents } from '../markdown-components/mdx-components'
 
-export function ThoughtCard({ thought }: { thought: Thought }) {
+type ThoughtCardProps = {
+  thought: Thought
+  /** 传入链接时为列表卡片，不传时为详情页卡片 */
+  href?: string
+}
+
+export function ThoughtCard({ thought, href }: ThoughtCardProps) {
   const MDXContent = useMDXComponent(thought.body.code)
 
   return (
     <article>
       <Card>
         <CardHeader>
-          <Link href={`/thought/${thought.slug}`}>
-            <h2 className="text-xl font-bold mb-2">{thought.title}</h2>
-          </Link>
+          {href ? (
+            <Link href={href}>
+              <h2 className="text-xl font-bold">{thought.title}</h2>
+            </Link>
+          ) : (
+            <h1 className="text-xl font-bold">{thought.title}</h1>
+          )}
           <div className="text-sm text-muted-foreground mb-2">
             <span>{dayjs(thought.date).format('YYYY-MM-DD')}</span>
             <span className="mx-1">·</span>

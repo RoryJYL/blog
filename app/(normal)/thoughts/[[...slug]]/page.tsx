@@ -30,7 +30,7 @@ export default function Page({ params }: PostPageProps) {
     <>
       <div className="space-y-6 mb-6">
         {thoughts.map((thought) => (
-          <ThoughtCard key={thought._id} thought={thought} />
+          <ThoughtCard key={thought._id} thought={thought} href={thought.url} />
         ))}
       </div>
       <Pagination totalPages={totalPages} currentPage={page} />
