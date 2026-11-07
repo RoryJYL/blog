@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
+import { AdjacentNav } from '@/app/components/adjacent-nav'
 import MainLayout from '@/app/components/main-layout'
 import { PostList } from '@/app/components/post-list'
 import TableOfContents from '@/app/components/toc'
-import { getPost } from '@/lib/contentplayer-utils'
+import { getAdjacentPosts, getPost } from '@/lib/contentplayer-utils'
 
 type PostPageProps = {
   params: { slug: string }
@@ -18,6 +19,8 @@ export default function PostLayout({
     notFound()
   }
 
+  const { previous, next } = getAdjacentPosts(slug)
+
   return (
     <MainLayout
       left={
@@ -26,7 +29,12 @@ export default function PostLayout({
         </div>
       }
       right={<PostList currentId={post._id} />}
-      main={children}
+      main={
+        <>
+          {children}
+          <AdjacentNav previous={previous} next={next} />
+        </>
+      }
     />
   )
 }

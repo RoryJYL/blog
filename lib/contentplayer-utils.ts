@@ -112,6 +112,28 @@ export function getAllPostSlugs() {
 }
 
 /**
+ * 获取相邻内容：previous 为列表中靠前（更新）的一篇，next 为靠后（更早）的一篇
+ */
+function getAdjacent<T extends { slug: string }>(items: T[], slug: string) {
+  const index = items.findIndex((item) => item.slug === slug)
+  if (index === -1) {
+    return { previous: undefined, next: undefined }
+  }
+
+  return {
+    previous: index > 0 ? items[index - 1] : undefined,
+    next: index < items.length - 1 ? items[index + 1] : undefined,
+  }
+}
+
+/**
+ * 获取相邻文章
+ */
+export function getAdjacentPosts(slug: string) {
+  return getAdjacent(sortedPublishedPosts, slug)
+}
+
+/**
  * 根据标签获取分页的文章
  */
 export function getPostsByTag(
@@ -145,6 +167,13 @@ export function getThought(slug: string) {
   )
 
   return thought
+}
+
+/**
+ * 获取相邻絮语
+ */
+export function getAdjacentThoughts(slug: string) {
+  return getAdjacent(sortedPublishedThoughts, slug)
 }
 
 export function getAllThoughtsInfo<
