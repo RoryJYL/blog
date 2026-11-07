@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Rss } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/tailwind-utils'
 
@@ -23,6 +24,15 @@ export function Footer() {
             >
               Rory's Blog
             </Link>
+            <span className={cn('mx-2', 'after:content-["·"]')} />
+            <a
+              className="font-medium text-primary underline-offset-4 hover:underline"
+              href="/atom.xml"
+              title="订阅 Atom"
+            >
+              <Rss className="mr-1 inline size-4 align-[-0.125em]" />
+              RSS
+            </a>
           </div>
           <div>
             Powered by{' '}

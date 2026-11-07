@@ -95,6 +95,21 @@ const ReadingTime = defineNestedType(() => ({
   },
 }))
 
+// 提取摘要：优先取 <!-- more --> 之前的内容，否则截取前 200 个字符
+function buildExcerpt(content: string): string {
+  const moreRegex = /<!-- more -->|{\/\* more \*\/}/
+  const excerptContent =
+    content.split(moreRegex)[0] || `${content.slice(0, 200)}...`
+
+  // 将 Markdown 转换为纯文本，去除 Markdown 格式符号
+  return excerptContent
+    .replace(/!\[.*?\]\(.*?\)/g, '') // 移除图片
+    .replace(/\[([^\]]+)\]\((.*?)\)/g, '$1') // 移除链接但保留链接文本
+    .replace(/[`*_{}[\]()#+\-.!]/g, '') // 移除其他 Markdown 格式符号
+    .replace(/\n/g, ' ') // 将换行符替换为空格
+    .trim()
+}
+
 export const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: 'posts/*.mdx',
@@ -115,24 +130,7 @@ export const Post = defineDocumentType(() => ({
     },
     excerpt: {
       type: 'string',
-      resolve: async (post) => {
-        const content = post.body.raw
-
-        // 检查是否包含标识，如果有则截取标识前的内容，否则截取前 200 个字符
-        const moreRegex = /<!-- more -->|{\/\* more \*\/}/
-        const excerptContent =
-          content.split(moreRegex)[0] || `${content.slice(0, 200)}...`
-
-        // 将 Markdown 转换为纯文本，去除 Markdown 格式符号
-        const plainTextExcerpt = excerptContent
-          .replace(/!\[.*?\]\(.*?\)/g, '') // 移除图片
-          .replace(/\[([^\]]+)\]\((.*?)\)/g, '$1') // 移除链接但保留链接文本
-          .replace(/[`*_{}[\]()#+\-.!]/g, '') // 移除其他 Markdown 格式符号
-          .replace(/\n/g, ' ') // 将换行符替换为空格
-          .trim()
-
-        return plainTextExcerpt
-      },
+      resolve: (post) => buildExcerpt(post.body.raw),
     },
     headerImage: {
       type: 'string',
@@ -186,6 +184,10 @@ export const Thought = defineDocumentType(() => ({
     slug: {
       type: 'string',
       resolve: (thought) => thought._raw.flattenedPath.replace('thoughts/', ''),
+    },
+    excerpt: {
+      type: 'string',
+      resolve: (thought) => buildExcerpt(thought.body.raw),
     },
   },
 }))

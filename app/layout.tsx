@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   },
   // 默认 title，在 shallow merge 时可被覆盖
   title: "Rory's blog",
+  alternates: {
+    types: {
+      'application/atom+xml': '/atom.xml',
+    },
+  },
 }
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
