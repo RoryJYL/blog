@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="zh-Hans-CN" suppressHydrationWarning>
-      <body className="bg-slate-100 dark:bg-zinc-950">
+      <body className="bg-background">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
