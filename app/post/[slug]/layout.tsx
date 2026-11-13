@@ -3,6 +3,7 @@ import { AdjacentNav } from '@/app/components/adjacent-nav'
 import MainLayout from '@/app/components/main-layout'
 import { PostList } from '@/app/components/post-list'
 import TableOfContents from '@/app/components/toc'
+import { Card } from '@/components/ui/card'
 import { getAdjacentPosts, getPost } from '@/lib/contentplayer-utils'
 
 type PostPageProps = {
@@ -25,7 +26,9 @@ export default function PostLayout({
     <MainLayout
       left={
         <div className="hidden md:block md:sticky md:top-6">
-          <TableOfContents toc={post.toc} />
+          <Card className="p-6">
+            <TableOfContents toc={post.toc} />
+          </Card>
         </div>
       }
       right={<PostList currentId={post._id} />}
