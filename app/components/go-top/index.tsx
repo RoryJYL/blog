@@ -31,30 +31,40 @@ export default function GoTop({ toc }: GoTopProps) {
   }, [])
 
   return (
-    <div className={cn('fixed bottom-4 right-7 z-100 space-y-2')}>
+    // 必须低于 Sheet 遮罩的 z-50，否则抽屉打开时按钮浮在遮罩上方却点不动
+    <div className={cn('fixed bottom-4 right-7 z-40 space-y-2')}>
       {toc && (
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <div
+            <button
+              type="button"
+              aria-label="打开文章目录"
               className={cn(
-                'block md:hidden cursor-pointer',
+                'md:hidden cursor-pointer p-0',
                 'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow-sm',
                 'hover:text-sky-500 transition-colors',
               )}
             >
-              <Icon icon="lucide:align-justify" className="h-6 w-6" />
-            </div>
+              <Icon
+                icon="lucide:align-justify"
+                className="h-6 w-6"
+                aria-hidden="true"
+              />
+            </button>
           </SheetTrigger>
-          <SheetContent side="bottom">
+          <SheetContent
+            side="bottom"
+            className="max-h-[70vh]"
+            onOpenAutoFocus={(event) => event.preventDefault()}
+          >
             <SheetHeader className="sr-only">
               <SheetTitle>文章目录</SheetTitle>
               <SheetDescription>文章目录</SheetDescription>
             </SheetHeader>
-            <TableOfContents
-              toc={toc}
-              className="border-none"
-              onItemClick={() => setOpen(false)}
-            />
+            {/* p-2 给 focus ring 留空间，overflow 会裁剪外扩的 ring */}
+            <div className="max-h-[calc(70vh-3rem)] overflow-y-auto p-2">
+              <TableOfContents toc={toc} onItemClick={() => setOpen(false)} />
+            </div>
           </SheetContent>
         </Sheet>
       )}
