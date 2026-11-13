@@ -14,7 +14,7 @@ function getInfosByPathname(pathname: string) {
     pathname.startsWith('/post/') ||
     pathname.startsWith('/posts/')
   ) {
-    return { infos: getAllPostsInfo(), title: '所有文章' }
+    return { infos: getAllPostsInfo(), title: '所有文章', href: '/posts' }
   }
 
   // 处理思考相关路径：/thoughts, /thoughts/*, /thought/*
@@ -23,21 +23,32 @@ function getInfosByPathname(pathname: string) {
     pathname.startsWith('/thoughts/') ||
     pathname.startsWith('/thought/')
   ) {
-    return { infos: getAllThoughtsInfo(), title: '所有碎碎念' }
+    return {
+      infos: getAllThoughtsInfo(),
+      title: '所有碎碎念',
+      href: '/thoughts',
+    }
   }
 
-  return { infos: [], title: '' }
+  return { infos: [], title: '', href: undefined }
 }
 
 export function PostList({ currentId }: { currentId?: string }) {
   // 根据不同路由，拿不同的数据
   const pathname = usePathname()
-  const { infos, title } = getInfosByPathname(pathname)
+  const { infos, title, href } = getInfosByPathname(pathname)
 
   return (
     <Card className="hidden md:block">
       <CardContent className="pt-4">
-        {!!title && <div className="text-lg font-bold mb-2">{title}</div>}
+        {!!title &&
+          (href ? (
+            <Link href={href} className="inline-block text-lg font-bold mb-2">
+              {title}
+            </Link>
+          ) : (
+            <div className="text-lg font-bold mb-2">{title}</div>
+          ))}
         <div className="flex flex-col">
           {infos.map((info) => (
             <Button
