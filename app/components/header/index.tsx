@@ -1,40 +1,23 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { SITE_TITLE } from '@/lib/site-config'
+import { MobileNav } from './mobile-nav'
 import { ModeToggle } from './mode-toggle'
-
-const navLinks: { title: string; href: string; description?: string }[] = [
-  {
-    title: '首页',
-    href: '/',
-  },
-  {
-    title: '絮语',
-    href: '/thoughts',
-  },
-  {
-    title: '文章',
-    href: '/posts',
-  },
-  {
-    title: '游戏',
-    href: '/gamer-profile/playstation',
-  },
-]
+import { navLinks } from './nav-links'
 
 export function Header() {
   return (
-    <nav className="xl:px-0 py-2 px-4 bg-background">
-      <div className="mx-auto flex max-[420px]:flex-wrap items-center max-[420px]:justify-between justify-start xl:max-w-7xl md:max-w-5xl">
-        <h1>
-          <Button variant="ghost" asChild>
-            <Link href="/">Rory's Blog</Link>
-          </Button>
+    <nav className="relative py-2 px-4 xl:px-0 bg-background">
+      <div className="mx-auto flex items-center xl:max-w-7xl md:max-w-5xl">
+        <h1 className="font-medium px-2">
+          <Link href="/">{SITE_TITLE}</Link>
         </h1>
-        <div className="max-[420px]:order-last flex w-full order-0 md:mr-auto md:w-auto overflow-x-auto">
+        <div className="hidden md:flex ml-2">
           <Navigation />
         </div>
-        <div>
+        <div className="ml-auto flex items-center">
           <ModeToggle />
+          <MobileNav />
         </div>
       </div>
     </nav>
@@ -45,7 +28,12 @@ function Navigation() {
   return (
     <>
       {navLinks.map((link) => (
-        <Button variant="ghost" key={link.href} asChild>
+        <Button
+          className="px-2.5 py-1.5"
+          variant="ghost"
+          key={link.href}
+          asChild
+        >
           <Link href={link.href}>{link.title}</Link>
         </Button>
       ))}
