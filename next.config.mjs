@@ -1,9 +1,33 @@
 import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev'
 import { withContentlayer } from 'next-contentlayer'
 
-if (process.env.NODE_ENV === 'development') {
+const isDev = process.env.NODE_ENV === 'development'
+
+if (isDev) {
   await setupDevPlatform()
 }
+
+const API_URLS = {
+  local: {
+    PSN: 'http://localhost:8787',
+    STEAM: 'http://localhost:8788',
+  },
+  remote: {
+    PSN: 'https://playstation-network-api.fw45rqnzhz.workers.dev',
+    STEAM: 'https://steam-api.fw45rqnzhz.workers.dev',
+  },
+}
+
+// 开发环境默认调用本地 API；GAMER_API_SOURCE=remote（或 pnpm dev:remote）直接用线上 Worker
+const apiSource = isDev ? (process.env.GAMER_API_SOURCE ?? 'local') : 'remote'
+
+if (!(apiSource in API_URLS)) {
+  throw new Error(
+    `GAMER_API_SOURCE 只能是 local 或 remote，当前值：${apiSource}`,
+  )
+}
+
+const apiUrls = API_URLS[apiSource]
 
 /**
  * @type {import('next').NextConfig}
@@ -11,14 +35,8 @@ if (process.env.NODE_ENV === 'development') {
 const nextConfig = withContentlayer({
   output: 'export',
   env: {
-    PSN_API_URL:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:8787'
-        : 'https://playstation-network-api.fw45rqnzhz.workers.dev',
-    STEAM_API_URL:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:8788'
-        : 'https://steam-api.fw45rqnzhz.workers.dev',
+    PSN_API_URL: apiUrls.PSN,
+    STEAM_API_URL: apiUrls.STEAM,
   },
   images: {
     unoptimized: true,

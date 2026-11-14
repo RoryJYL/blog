@@ -5,6 +5,7 @@
   "description": "Personal blog site of Rory",
   "scripts": {
     "dev": "next dev",
+    "dev:remote": "GAMER_API_SOURCE=remote next dev",
     "build": "next build && next-sitemap",
     "start": "next start",
     "format": "biome check --write .",
