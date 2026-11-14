@@ -18,6 +18,9 @@ import { TrophyIcon } from './trophy'
 
 const showTrophies = ['platinum', 'gold', 'silver', 'bronze'] as const
 
+// 与头图 h-72 及标题 mt-72 保持一致
+const HERO_HEIGHT = 288
+
 interface PlayStationTrophyCardListProps {
   games: Game[]
 }
@@ -68,7 +71,7 @@ export default function PlayStationTrophyCardList({
             <motion.div
               layoutId={`card-${active.npCommunicationId}-${id}`}
               ref={ref}
-              className="relative w-[95%] max-w-125 h-[85%] md:h-[90%] flex flex-col rounded-xl overflow-hidden"
+              className="relative w-[95%] max-w-125 h-[85%] md:h-[90%] flex flex-col rounded-xl overflow-hidden bg-secondary"
             >
               <motion.button
                 key={`button-${active.npCommunicationId}-${id}`}
@@ -161,11 +164,12 @@ export default function PlayStationTrophyCardList({
 function ListCard({ active, id }: { active: Game; id: string }) {
   const scrollContainer = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll({ container: scrollContainer })
-  const stop = useTransform(scrollY, [0, 288], [35, 0])
+  // 遮罩终点必须落在头图底部，不能用卡片高度的百分比，否则大屏下头图下方会半透明
+  const stop = useTransform(scrollY, [0, HERO_HEIGHT], [HERO_HEIGHT, 0])
   const bg = useMotionTemplate`
-    linear-gradient(transparent, var(--color-secondary) ${stop}%)
+    linear-gradient(transparent, var(--color-secondary) ${stop}px)
   `
-  const paddingTop = useTransform(scrollY, [0, 288], [0, 16])
+  const paddingTop = useTransform(scrollY, [0, HERO_HEIGHT], [0, 16])
 
   return (
     <>

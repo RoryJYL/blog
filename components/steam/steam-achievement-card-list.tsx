@@ -14,6 +14,9 @@ import { useOutsideClick } from '@/hooks/use-outside-click'
 import type { SteamAchievementDetail, SteamGame } from '@/lib/steam-types'
 import { useSteamStore } from '../steam-store-provider'
 
+// 与头图 h-58.5 及标题 mt-58.5 保持一致
+const HERO_HEIGHT = 234
+
 interface SteamAchievementCardListProps {
   games: SteamGame[]
 }
@@ -64,7 +67,7 @@ export default function SteamAchievementCardList({
             <motion.div
               layoutId={`steam-card-${active.appId}-${id}`}
               ref={ref}
-              className="relative w-[95%] max-w-125 h-[85%] md:h-[90%] flex flex-col rounded-xl overflow-hidden"
+              className="relative w-[95%] max-w-125 h-[85%] md:h-[90%] flex flex-col rounded-xl overflow-hidden bg-secondary"
             >
               <motion.button
                 key={`steam-button-${active.appId}-${id}`}
@@ -143,11 +146,12 @@ export default function SteamAchievementCardList({
 function ListCard({ active, id }: { active: SteamGame; id: string }) {
   const scrollContainer = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll({ container: scrollContainer })
-  const stop = useTransform(scrollY, [0, 234], [28, 0])
+  // 遮罩终点必须落在头图底部，不能用卡片高度的百分比，否则大屏下头图下方会半透明
+  const stop = useTransform(scrollY, [0, HERO_HEIGHT], [HERO_HEIGHT, 0])
   const bg = useMotionTemplate`
-    linear-gradient(transparent, var(--color-secondary) ${stop}%)
+    linear-gradient(transparent, var(--color-secondary) ${stop}px)
   `
-  const paddingTop = useTransform(scrollY, [0, 234], [0, 10])
+  const paddingTop = useTransform(scrollY, [0, HERO_HEIGHT], [0, 10])
 
   return (
     <>
