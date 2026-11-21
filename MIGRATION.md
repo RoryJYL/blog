@@ -563,6 +563,8 @@ not_found_handling = "404-page"
 | 依赖数量 / 磁盘          | 1043 包 / 920M | 462 包 / 600M  | −56%               |
 | 12 个页面正文纯文本 diff | —              | 逐字一致       | 仅页脚致谢文字变化 |
 
+交互（headless Chrome + CDP，15 项全过）：主题切换写入 `localStorage` 并在 `readystate=interactive` 时已套上 `dark` 类（无闪白）、TOC 滚动高亮跟随、移动端抽屉展开/锁滚动/跳转后关闭、回到顶部按钮。
+
 Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）：
 
 | 指标     | 现网            | 新栈            |
