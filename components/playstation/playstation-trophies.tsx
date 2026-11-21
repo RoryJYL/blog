@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Clock, Gamepad2 } from 'lucide-react'
 import { PlayingCard } from '@/components/gamer-profile/playing-card'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -39,13 +38,12 @@ export function PlayStationTrophies({
       <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-4 space-y-0">
         <div className="shrink-0 flex items-center gap-2">
           <div className="relative">
-            <Image
+            <img
               src={profile.avatarUrl}
               alt={profile.onlineId}
               width={36}
               height={36}
               className="rounded-full"
-              unoptimized
             />
             {online && (
               <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />

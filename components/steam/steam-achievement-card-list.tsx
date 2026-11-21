@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useId, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import {
@@ -106,12 +105,10 @@ export default function SteamAchievementCardList({
               layoutId={`steam-image-${game.appId}-${id}`}
               className="max-[450px]:w-full aspect-21/10 w-42.75 relative shrink-0 overflow-hidden rounded"
             >
-              <Image
+              <img
                 src={game.iconUrl}
                 alt={game.name}
-                fill
-                className="object-cover"
-                unoptimized
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </motion.div>
             <div className="flex flex-col justify-between h-full overflow-hidden">
@@ -159,13 +156,12 @@ function ListCard({ active, id }: { active: SteamGame; id: string }) {
         layoutId={`steam-image-${active.appId}-${id}`}
         className="absolute top-0 left-0 right-0"
       >
-        <Image
+        <img
           width={460}
           height={234}
           src={active.iconUrl}
           alt={active.name}
           className="w-full h-58.5 rounded-tr-lg rounded-tl-lg object-cover"
-          unoptimized
         />
       </motion.div>
 
@@ -239,13 +235,12 @@ function AchievementItem({
   return (
     <div className="flex gap-4 w-full">
       {achievement.iconUrl ? (
-        <Image
+        <img
           src={achievement.iconUrl}
           alt={achievement.displayName}
           width={200}
           height={200}
           className="w-20 h-20 rounded object-cover"
-          unoptimized
         />
       ) : (
         <div className="w-20 h-20 rounded bg-secondary" />

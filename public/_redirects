@@ -1,3 +1,6 @@
-# Cloudflare Pages 重定向规则（部署时由边缘节点执行，真实 HTTP 301）
-# /gamer-profile 已被 Google 收录，永久重定向到新路径
+# Workers Static Assets 的 _redirects：按顺序匹配，第一条命中即停
+# /gamer-profile 已被搜索引擎收录，永久重定向到新路径
 /gamer-profile /gamer-profile/playstation 301
+# 索引页是规范路径，第 1 页只是重复内容
+/posts/1 /posts 301
+/thoughts/1 /thoughts 301

@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Icon } from '@iconify/react'
+import { Link } from 'react-router'
 import { cn } from '@/lib/tailwind-utils'
 
 type AdjacentItem = {
@@ -44,7 +44,7 @@ function AdjacentLink({
 
   return (
     <Link
-      href={item.url}
+      to={item.url}
       className={cn(
         'group rounded-lg border bg-card p-4 shadow-sm transition-colors',
         'hover:border-primary/20 hover:bg-muted/40',

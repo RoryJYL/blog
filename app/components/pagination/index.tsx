@@ -1,21 +1,29 @@
-import Link from 'next/link'
 import { useCallback } from 'react'
+import { Link } from 'react-router'
 import { buttonVariants } from '@/components/ui/button'
 import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
   Pagination as PaginationUI,
 } from '@/components/ui/pagination'
 import { cn } from '@/lib/tailwind-utils'
 
 type PaginationProps = {
+  /** 列表页的索引路径，如 /posts、/thoughts；第 1 页就是它，不再拼 /1 */
+  basePath: string
   totalPages: number
   currentPage: number
 }
 
-export function Pagination({ totalPages, currentPage }: PaginationProps) {
+export function Pagination({
+  basePath,
+  totalPages,
+  currentPage,
+}: PaginationProps) {
+  const pageHref = (page: number) =>
+    page === 1 ? basePath : `${basePath}/${page}`
+
   const getPageNumbers = useCallback(() => {
     if (totalPages <= 5) {
       return Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -47,17 +55,19 @@ export function Pagination({ totalPages, currentPage }: PaginationProps) {
 
   return (
     <PaginationUI className="flex justify-between items-center">
-      {/* 上一页按钮 */}
-      <Link
-        href={currentPage === 2 ? '/' : `/posts/${currentPage - 1}`}
-        className={cn(
-          buttonVariants({ variant: 'ghost' }),
-          currentPage > 1 ? 'visible' : 'invisible',
-          'font-normal',
-        )}
-      >
-        上一页
-      </Link>
+      {/* 上一页按钮：边界处渲染成 span，避免产生指向不存在页面的链接 */}
+      {currentPage > 1 ? (
+        <Link
+          to={pageHref(currentPage - 1)}
+          className={cn(buttonVariants({ variant: 'ghost' }), 'font-normal')}
+        >
+          上一页
+        </Link>
+      ) : (
+        <span className={cn(buttonVariants({ variant: 'ghost' }), 'invisible')}>
+          上一页
+        </span>
+      )}
 
       {/* 页码部分 */}
       <PaginationContent>
@@ -79,9 +89,15 @@ export function Pagination({ totalPages, currentPage }: PaginationProps) {
                   {page}
                 </span>
               ) : (
-                <PaginationLink href={page === 1 ? '/' : `/posts/${page}`}>
+                <Link
+                  to={pageHref(page)}
+                  className={cn(
+                    buttonVariants({ variant: 'ghost' }),
+                    'h-9 w-9',
+                  )}
+                >
                   {page}
-                </PaginationLink>
+                </Link>
               )}
             </PaginationItem>
           ),
@@ -89,16 +105,18 @@ export function Pagination({ totalPages, currentPage }: PaginationProps) {
       </PaginationContent>
 
       {/* 下一页按钮 */}
-      <Link
-        href={`/posts/${currentPage + 1}`}
-        className={cn(
-          buttonVariants({ variant: 'ghost' }),
-          currentPage < totalPages ? 'visible' : 'invisible',
-          'font-normal',
-        )}
-      >
-        下一页
-      </Link>
+      {currentPage < totalPages ? (
+        <Link
+          to={pageHref(currentPage + 1)}
+          className={cn(buttonVariants({ variant: 'ghost' }), 'font-normal')}
+        >
+          下一页
+        </Link>
+      ) : (
+        <span className={cn(buttonVariants({ variant: 'ghost' }), 'invisible')}>
+          下一页
+        </span>
+      )}
     </PaginationUI>
   )
 }

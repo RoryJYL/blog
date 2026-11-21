@@ -1,10 +1,8 @@
-import Link from 'next/link'
-import type { Thought } from 'contentlayer/generated'
-import dayjs from 'dayjs'
-import { useMDXComponent } from 'next-contentlayer/hooks'
+import { Link } from 'react-router'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import type { Thought } from '@/lib/content'
+import { MDXContent } from '@/lib/mdx'
 import { cn } from '@/lib/tailwind-utils'
-import { mdxComponents } from '../markdown-components/mdx-components'
 
 type ThoughtCardProps = {
   thought: Thought
@@ -13,21 +11,19 @@ type ThoughtCardProps = {
 }
 
 export function ThoughtCard({ thought, href }: ThoughtCardProps) {
-  const MDXContent = useMDXComponent(thought.body.code)
-
   return (
     <article>
       <Card>
         <CardHeader>
           {href ? (
-            <Link href={href}>
+            <Link to={href}>
               <h2 className="text-xl font-bold">{thought.title}</h2>
             </Link>
           ) : (
             <h1 className="text-xl font-bold">{thought.title}</h1>
           )}
           <div className="text-sm text-muted-foreground mb-2">
-            <span>{dayjs(thought.date).format('YYYY-MM-DD')}</span>
+            <span>{thought.displayDate}</span>
             <span className="mx-1">·</span>
             <span>{thought.readingTime.text}</span>
           </div>
@@ -38,7 +34,7 @@ export function ThoughtCard({ thought, href }: ThoughtCardProps) {
             'prose-a:transition-opacity prose-a:underline-offset-2 hover:prose-a:opacity-75 dark:hover:prose-a:opacity-85',
           )}
         >
-          <MDXContent components={mdxComponents} />
+          <MDXContent code={thought.code} />
         </CardContent>
       </Card>
     </article>

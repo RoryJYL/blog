@@ -1,9 +1,7 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Post } from 'contentlayer/generated'
-import dayjs from 'dayjs'
+import { Link } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import type { Post } from '@/lib/content'
 import { getPostBadges } from '@/lib/post-utils'
 import { BadgeList } from '../badge-list'
 
@@ -13,7 +11,7 @@ type PostCardProps = {
 }
 
 export function PostCard({ post, isFirst = false }: PostCardProps) {
-  const { headerImage, title, url, excerpt, date } = post
+  const { headerImage, title, url, excerpt, displayDate } = post
 
   const badges = getPostBadges(post)
 
@@ -21,13 +19,12 @@ export function PostCard({ post, isFirst = false }: PostCardProps) {
     <Card className="overflow-hidden">
       {headerImage && (
         <div className="w-full h-56">
-          <Link href={url} className="relative block h-full">
-            <Image
-              className="object-cover"
+          <Link to={url} className="relative block h-full">
+            <img
+              className="absolute inset-0 h-full w-full object-cover"
               src={headerImage}
               alt={title}
-              fill
-              priority={isFirst}
+              loading={isFirst ? 'eager' : 'lazy'}
             />
           </Link>
         </div>
@@ -35,14 +32,14 @@ export function PostCard({ post, isFirst = false }: PostCardProps) {
       <CardContent className="p-5 space-y-4">
         <article>
           <h2 className="text-2xl text-primary/95 hover:text-primary transition">
-            <Link href={url}>{title}</Link>
+            <Link to={url}>{title}</Link>
           </h2>
         </article>
         <section className="text-primary/75">{excerpt}</section>
         <BadgeList badges={badges} />
         <div className="flex justify-between text-primary/50">
           <div>
-            <span>{dayjs(date).format('YYYY-MM-DD')}</span>
+            <span>{displayDate}</span>
           </div>
           <div>
             <Button
@@ -50,7 +47,7 @@ export function PostCard({ post, isFirst = false }: PostCardProps) {
               variant="link"
               asChild
             >
-              <Link href={url}>继续阅读</Link>
+              <Link to={url}>继续阅读</Link>
             </Button>
           </div>
         </div>

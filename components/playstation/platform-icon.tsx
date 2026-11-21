@@ -1,7 +1,7 @@
+import PS4Icon from '@/app/assets/icons/ps4.svg?react'
+import PS5Icon from '@/app/assets/icons/ps5.svg?react'
 import type { Platform } from '@/lib/playstation-types'
 import { cn } from '@/lib/tailwind-utils'
-import PS4Icon from '@/public/icon/ps4.svg'
-import PS5Icon from '@/public/icon/ps5.svg'
 
 interface PlatformIconProps extends React.HTMLAttributes<HTMLDivElement> {
   platform: Platform

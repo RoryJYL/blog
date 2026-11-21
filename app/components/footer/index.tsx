@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Rss } from 'lucide-react'
+import { Link } from 'react-router'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/tailwind-utils'
 
@@ -20,7 +20,7 @@ export function Footer() {
                 buttonVariants({ variant: 'link' }),
                 'p-0 text-base ml-1 h-auto',
               )}
-              href="/"
+              to="/"
             >
               Rory's Blog
             </Link>
@@ -36,25 +36,25 @@ export function Footer() {
           </div>
           <div>
             Powered by{' '}
-            <Link
+            <a
               className={cn(
                 buttonVariants({ variant: 'link' }),
                 'p-0 text-base h-auto',
               )}
-              href="https://nextjs.org/"
+              href="https://reactrouter.com/"
             >
-              Next.js
-            </Link>
+              React Router
+            </a>
             <span className={cn('mx-2', 'after:content-["·"]')} />
-            <Link
+            <a
               className={cn(
                 buttonVariants({ variant: 'link' }),
                 'p-0 text-base h-auto',
               )}
-              href="https://contentlayer.dev/"
+              href="https://velite.js.org/"
             >
-              Contentlayer
-            </Link>
+              Velite
+            </a>
           </div>
         </div>
       </footer>

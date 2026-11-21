@@ -1,10 +1,7 @@
-'use client'
-
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, useLocation } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { getAllPostsInfo, getAllThoughtsInfo } from '@/lib/contentplayer-utils'
+import { publishedPosts, publishedThoughts } from '@/lib/content'
 import { cn } from '@/lib/tailwind-utils'
 
 function getInfosByPathname(pathname: string) {
@@ -14,7 +11,7 @@ function getInfosByPathname(pathname: string) {
     pathname.startsWith('/post/') ||
     pathname.startsWith('/posts/')
   ) {
-    return { infos: getAllPostsInfo(), title: '所有文章', href: '/posts' }
+    return { infos: publishedPosts, title: '所有文章', href: '/posts' }
   }
 
   // 处理思考相关路径：/thoughts, /thoughts/*, /thought/*
@@ -24,7 +21,7 @@ function getInfosByPathname(pathname: string) {
     pathname.startsWith('/thought/')
   ) {
     return {
-      infos: getAllThoughtsInfo(),
+      infos: publishedThoughts,
       title: '所有碎碎念',
       href: '/thoughts',
     }
@@ -33,9 +30,9 @@ function getInfosByPathname(pathname: string) {
   return { infos: [], title: '', href: undefined }
 }
 
-export function PostList({ currentId }: { currentId?: string }) {
+export function PostList({ currentSlug }: { currentSlug?: string }) {
   // 根据不同路由，拿不同的数据
-  const pathname = usePathname()
+  const { pathname } = useLocation()
   const { infos, title, href } = getInfosByPathname(pathname)
 
   return (
@@ -43,7 +40,7 @@ export function PostList({ currentId }: { currentId?: string }) {
       <CardContent className="pt-4">
         {!!title &&
           (href ? (
-            <Link href={href} className="inline-block text-lg font-bold mb-2">
+            <Link to={href} className="inline-block text-lg font-bold mb-2">
               {title}
             </Link>
           ) : (
@@ -57,13 +54,13 @@ export function PostList({ currentId }: { currentId?: string }) {
                 'p-0 h-9 justify-start',
                 'hover:no-underline',
                 'text-primary/70 hover:text-primary',
-                currentId === info._id && 'text-primary',
-                !currentId && 'text-primary/80 hover:text-primary',
+                currentSlug === info.slug && 'text-primary',
+                !currentSlug && 'text-primary/80 hover:text-primary',
               )}
-              key={info._id}
+              key={info.slug}
               asChild
             >
-              <Link href={info.url}>{info.title}</Link>
+              <Link to={info.url}>{info.title}</Link>
             </Button>
           ))}
         </div>

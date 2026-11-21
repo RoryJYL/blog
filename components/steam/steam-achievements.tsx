@@ -1,7 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
 import { Clock } from 'lucide-react'
 import { PlayingCard } from '@/components/gamer-profile/playing-card'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -37,26 +35,25 @@ export function SteamAchievements({ profile, apiUrl }: SteamAchievementsProps) {
       <CardHeader className="flex flex-row justify-between font-normal text-xl gap-y-4 space-y-0">
         <div className="shrink-0 flex items-center gap-2">
           <div className="relative">
-            <Image
+            <img
               src={profile.avatarUrl}
               alt={profile.personaName}
               width={36}
               height={36}
               className="rounded-full"
-              unoptimized
             />
             {online && (
               <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-500 ring-2 ring-card" />
             )}
           </div>
-          <Link
+          <a
             href={profile.profileUrl}
             target="_blank"
             rel="noreferrer noopener"
             className="hover:underline"
           >
             {profile.personaName}
-          </Link>
+          </a>
         </div>
         <AchievementsSummary profile={profile} />
       </CardHeader>

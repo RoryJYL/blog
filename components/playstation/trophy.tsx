@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Icon } from '@iconify/react'
 import type { TrophyType } from '@/lib/playstation-types'
 import { cn } from '@/lib/tailwind-utils'
@@ -53,6 +52,10 @@ export function TrophyIcon({
 
 export function TrophyIconImage({ className, type }: TrophyIconImageProps) {
   return (
-    <Image src={TROPHY_ICONS_MAP[type]} alt={type} fill className={className} />
+    <img
+      src={TROPHY_ICONS_MAP[type]}
+      alt={type}
+      className={cn('absolute inset-0 h-full w-full', className)}
+    />
   )
 }

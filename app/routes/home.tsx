@@ -1,15 +1,13 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Icon } from '@iconify/react'
+import { Link } from 'react-router'
 import { Button } from '@/components/ui/button'
+import { pageMeta } from '@/lib/meta'
 import { cn } from '@/lib/tailwind-utils'
 
-export const metadata: Metadata = {
-  title: "首页 | Rory's blog",
-  description: 'Rory的个人博客，记录生活和技术。',
-}
+export const meta = () =>
+  pageMeta("首页 | Rory's blog", 'Rory的个人博客，记录生活和技术。')
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="px-4 min-h-[calc(100vh-56px-168px)] flex flex-col">
       <div className="flex-1 space-y-2 mx-auto px-4 pt-4 pb-10 xl:max-w-7xl md:max-w-5xl flex flex-col justify-between">
@@ -20,7 +18,7 @@ export default async function Home() {
           <p>
             你可以从这里开始：
             <Link
-              href="/thoughts"
+              to="/thoughts"
               className="transition-opacity underline-offset-2 hover:opacity-75 dark:hover:opacity-85"
             >
               <span>絮语</span>
@@ -32,9 +30,10 @@ export default async function Home() {
           <div className="flex gap-2">
             <Button variant="outline" asChild className="text-base">
               <Link
-                href="https://github.com/RoryJYL"
+                to="https://github.com/RoryJYL"
                 className="flex no-underline gap-1"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Icon icon="mdi:github" />
                 <span>GitHub</span>
@@ -42,20 +41,21 @@ export default async function Home() {
             </Button>
             <Button variant="outline" asChild className="text-base">
               <Link
-                href="https://steamcommunity.com/id/RoryJi"
+                to="https://steamcommunity.com/id/RoryJi"
                 className="flex no-underline gap-1"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Icon icon="mdi:steam" />
                 <span>Steam</span>
               </Link>
             </Button>
-            {/* email */}
             <Button variant="outline" asChild className="text-base">
               <Link
-                href="mailto:rory@rorytech.com"
+                to="mailto:rory@rorytech.com"
                 className="flex no-underline gap-1"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Icon icon="mdi:email" />
                 <span>Email</span>

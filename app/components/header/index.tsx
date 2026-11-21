@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import { Link } from 'react-router'
 import { Button } from '@/components/ui/button'
-import { SITE_TITLE } from '@/lib/site-config'
+import { SITE_TITLE } from '@/lib/site-config.mjs'
 import { MobileNav } from './mobile-nav'
 import { ModeToggle } from './mode-toggle'
 import { navLinks } from './nav-links'
@@ -10,7 +10,7 @@ export function Header() {
     <nav className="relative py-2 px-4 xl:px-0 bg-background">
       <div className="mx-auto flex items-center xl:max-w-7xl md:max-w-5xl">
         <h1 className="font-medium px-2">
-          <Link href="/">{SITE_TITLE}</Link>
+          <Link to="/">{SITE_TITLE}</Link>
         </h1>
         <div className="hidden md:flex ml-2">
           <Navigation />
@@ -34,7 +34,7 @@ function Navigation() {
           key={link.href}
           asChild
         >
-          <Link href={link.href}>{link.title}</Link>
+          <Link to={link.href}>{link.title}</Link>
         </Button>
       ))}
     </>

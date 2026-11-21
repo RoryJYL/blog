@@ -1,7 +1,6 @@
-import Image from 'next/image'
 import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { getTotalPostCount } from '@/lib/contentplayer-utils'
+import { getTotalPostCount } from '@/lib/content'
 
 export function Info() {
   const totalPost = getTotalPostCount()
@@ -20,12 +19,10 @@ export function Info() {
         <div className="space-y-2">
           <div className="w-24 h-24 relative rounded-full overflow-hidden mx-auto">
             {/* 头像 */}
-            <Image
-              className="scale-110 translate-x-[-2px] translate-y-[-3px]"
+            <img
+              className="absolute inset-0 h-full w-full object-cover scale-110 translate-x-[-2px] translate-y-[-3px]"
               src="/avatar-min.webp"
               alt="avatar"
-              fill
-              sizes="6rem"
             />
           </div>
           <h2 className="text-lg text-center font-medium">Rory</h2>

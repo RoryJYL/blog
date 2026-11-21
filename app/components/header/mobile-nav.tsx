@@ -1,17 +1,14 @@
-'use client'
-
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+import { Link, useLocation } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { useOutsideClick } from '@/hooks/use-outside-click'
 import { cn } from '@/lib/tailwind-utils'
 import { isNavLinkActive, navLinks } from './nav-links'
 
 export function MobileNav() {
-  const pathname = usePathname()
+  const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -74,7 +71,7 @@ export function MobileNav() {
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
-                    href={link.href}
+                    to={link.href}
                     onClick={() => setOpen(false)}
                     className={cn(
                       'rounded-lg p-3 text-muted-foreground transition-colors text-[15px]',

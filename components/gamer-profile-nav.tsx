@@ -1,7 +1,4 @@
-'use client'
-
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, useLocation } from 'react-router'
 import { cn } from '@/lib/tailwind-utils'
 
 const items = [
@@ -10,7 +7,7 @@ const items = [
 ]
 
 export function GamerProfileNav() {
-  const pathname = usePathname()
+  const { pathname } = useLocation()
 
   return (
     <div className="flex gap-2 mb-1.5">
@@ -19,7 +16,7 @@ export function GamerProfileNav() {
         return (
           <Link
             key={item.href}
-            href={item.href}
+            to={item.href}
             className={cn(
               'px-4 py-1.5 rounded-lg text-sm font-medium border transition-colors cursor-pointer',
               isActive

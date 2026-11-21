@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import type { LucideIcon } from 'lucide-react'
 import { motion } from 'motion/react'
 
@@ -29,12 +28,10 @@ export function PlayingCard({ title, imageUrl, meta = [] }: PlayingCardProps) {
     >
       <div className="relative aspect-video w-full bg-neutral-900">
         {imageUrl && (
-          <Image
+          <img
             src={imageUrl}
             alt={title}
-            fill
-            unoptimized
-            className="object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         )}
         {/* 桌面把信息压在图上，需要渐变托底；移动端信息在图片下方，不需要 */}

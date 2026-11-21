@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useId, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import {
@@ -111,18 +110,16 @@ export default function PlayStationTrophyCardList({
               className="w-20 h-20 relative shrink-0 overflow-hidden rounded"
             >
               {game.platform !== 'PS5' && (
-                <Image
+                <img
                   src={game.iconUrl}
                   alt={game.title}
-                  fill
-                  className="object-cover blur-sm"
+                  className="absolute inset-0 h-full w-full object-cover blur-sm"
                 />
               )}
-              <Image
+              <img
                 src={game.iconUrl}
                 alt={game.title}
-                fill
-                className="object-contain"
+                className="absolute inset-0 h-full w-full object-contain"
               />
               <PlatformIcon
                 platform={game.platform}
@@ -177,7 +174,7 @@ function ListCard({ active, id }: { active: Game; id: string }) {
         layoutId={`image-${active.npCommunicationId}-${id}`}
         className="absolute top-0 left-0 right-0"
       >
-        <Image
+        <img
           width={200}
           height={200}
           src={active.iconUrl}
@@ -245,7 +242,7 @@ function TrophyItem({ trophy }: { trophy: TrophyDetail }) {
 
   return (
     <div className="flex gap-4 w-full">
-      <Image
+      <img
         src={trophy.trophyIconUrl}
         alt={trophy.trophyName}
         width={200}
@@ -263,7 +260,7 @@ function TrophyItem({ trophy }: { trophy: TrophyDetail }) {
           {trophy.earnedDateTime.split('T')[0]}
         </div>
       </div>
-      <Image
+      <img
         src={`https://ab84760.webp.li/play-station/${trophy.trophyType}.png`}
         alt={trophy.trophyType}
         width={100}

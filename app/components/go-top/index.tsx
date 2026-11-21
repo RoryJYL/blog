@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import {
@@ -68,18 +67,20 @@ export default function GoTop({ toc }: GoTopProps) {
           </SheetContent>
         </Sheet>
       )}
-      <Link
+      <button
+        type="button"
+        aria-label="回到顶部"
         aria-hidden={!showTop}
         tabIndex={showTop ? 0 : -1}
+        onClick={() => window.scrollTo(0, 0)}
         className={cn(
           'flex items-center justify-center w-10 h-10 bg-secondary rounded shadow-sm',
           'hover:text-sky-500 transition-[opacity,color] duration-200',
           showTop ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
-        href="#"
       >
         <Icon icon="lucide:chevron-up" className="h-6 w-6" />
-      </Link>
+      </button>
     </div>
   )
 }

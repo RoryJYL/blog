@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useActiveSection } from '@/hooks/use-active-section'
 import { cn } from '@/lib/tailwind-utils'
@@ -45,12 +44,12 @@ export default function TableOfContents({
               size="sm"
               asChild
             >
-              <Link
+              <a
                 href={`#${item.slug}`}
                 onClick={() => onItemClick?.(item.slug)}
               >
                 {item.value}
-              </Link>
+              </a>
             </Button>
           </li>
         ))}
