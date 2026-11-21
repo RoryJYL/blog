@@ -435,7 +435,7 @@ not_found_handling = "404-page"
 
 1. **自定义域名**：已确认 NS 在 Cloudflare，`blog.rorytech.com` 可以直接挂成 Worker 的自定义域。切换时先把 Worker 挂上去验证，再改 Pages 项目。
 2. **CI（现在是 Pages 的 Git 集成，需要换）**：
-   - 在 Workers Builds 里连同一个仓库：build command = `pnpm build`，deploy command = `pnpm deploy`
+   - 在 Workers Builds 里连同一个仓库：build command = `pnpm build`，deploy command = `pnpm run deploy`（**不能写 `pnpm deploy`，那是 pnpm 内建的 workspace 部署命令，会直接报 ERR_PNPM_CANNOT_DEPLOY**）
    - 在 Workers Builds 的 **build 环境**里重配 `PSN_API_URL` / `STEAM_API_URL`——Pages 的构建变量不会自动搬过来，这是最容易漏的一步，漏了 gamer-profile 两页会静默变成"平台不可用"
    - 打开 preview builds，替代现在 Pages 的分支预览
    - **最后**再关 Pages 项目的自动部署：切域名前别关，它是回滚通道
@@ -565,16 +565,16 @@ not_found_handling = "404-page"
 
 交互（headless Chrome + CDP，15 项全过）：主题切换写入 `localStorage` 并在 `readystate=interactive` 时已套上 `dark` 类（无闪白）、TOC 滚动高亮跟随、移动端抽屉展开/锁滚动/跳转后关闭、回到顶部按钮。
 
-Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）：
+Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）。新栈这一列是切换后直接在 `https://blog.rorytech.com` 上测的：
 
-| 指标     | 现网            | 新栈            |
-| -------- | --------------- | --------------- |
-| 性能     | 90 · 80 · 76    | 93 · 83 · 73    |
-| 可访问性 | 100 · 96 · 91   | 100 · 96 · 95   |
-| 最佳实践 | 100 · 100 · 100 | 100 · 100 · 100 |
-| SEO      | 100 · 92 · 92   | 100 · 100 · 100 |
-
-文章页性能低 3 分是本地服务器不压缩造成的：`wrangler dev` 直接吐未压缩 JS（1.7 MiB），Cloudflare 会走 brotli（515 KiB）。其余两项（TBT 0ms vs 38–72ms、CLS 0）都更好。
+| 指标     | 现网（Pages）    | 新栈（Workers）  |
+| -------- | ---------------- | ---------------- |
+| 性能     | 90 · 80 · 76     | 100 · 82 · 82    |
+| 可访问性 | 100 · 96 · 91    | 100 · 96 · 95    |
+| 最佳实践 | 100 · 100 · 100  | 100 · 100 · 100  |
+| SEO      | 100 · 92 · 92    | 100 · 100 · 100  |
+| LCP      | 2047 · 5595 · 4161 ms | 1506 · 4365 · 3709 ms |
+| TBT      | 52 · 72 · 38 ms  | 0 · 0 · 0 ms     |
 
 ### 与方案的偏差
 
@@ -585,12 +585,27 @@ Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）：
 5. **日期改成构建时格式化。** 原来 `dayjs(date).format()` 在构建机和访客两端各算一次时区，UTC 以西的访客 hydration 时会看到日期跳变；现在按东八区在 `velite.config.ts` 里一次算死。
 6. **补了 `public/_headers`。** Workers 静态资源默认对一切返回 `max-age=0, must-revalidate`，而 Pages 给哈希资源 `max-age=14400`。不补规则等于每个带哈希的 JS/CSS 每次访问都要回源确认；现在 `/assets/*` 是 `max-age=31536000, immutable`，比现网更好，其余路径保持默认。
 
-### 未完成：域名切换
+### 切换记录（2026-11-21 完成）
 
-本机 `wrangler` token 已过期，非交互环境登不进去（`cf` CLI 也没有凭证），所以这一步没做。代码侧已就绪，`wrangler deploy --dry-run` 通过（82 个资源，无 Worker 脚本）。顺序：
+`blog.rorytech.com` 已经由 Worker 提供，Pages 项目还留着部署产物和 Git 集成（作为回滚通道），但**不再持有自定义域**。
 
-1. `pnpm exec wrangler login`
-2. `pnpm build && pnpm deploy` —— 先只上 `<account>.workers.dev`，不碰自定义域。逐条验证 13 条路由、`/posts/1` 与 `/gamer-profile` 的 301、`/nope` 的真 404、`/assets/*` 的 `immutable` 头
-3. 验证通过后在 `wrangler.toml` 追加 `routes = [{ pattern = "blog.rorytech.com", custom_domain = true }]` 再 `pnpm deploy`。**Pages 还占着这个域名时 wrangler 会直接报错**，先去 Pages 项目里解绑，再回来部署——这一步是几秒钟的切换窗口
-4. Workers Builds 连同一仓库：build command `pnpm build`、deploy command `pnpm deploy`，打开 preview builds；**不需要任何构建变量**（见偏差 3）
-5. 观察 3 天再关 Pages 的自动部署（这时它还是回滚通道）
+实测验收（全部在 `https://blog.rorytech.com` 上跑的）：
+
+- 16 条路径状态码正确：7 条 200、3 条 301、2 条未知路径 404、`/404` 200、atom/sitemap 200
+- 12 个页面正文与老 Pages 最后一次部署（`02ae179e.blog-azs.pages.dev`）逐字一致
+- 头正确：哈希资源 `max-age=31536000, immutable` + brotli，HTML `max-age=0, must-revalidate`，404 是真状态码
+- headless Chrome：6 个页面 console 干净（gamer 两页的 presence 请求现在也不再 CORS 报错），交互 15 项全过
+
+切换时踩到四个坑，都写进代码和注释了：
+
+1. **`pnpm deploy` 不是本项目的 deploy 脚本**——pnpm 有同名的内建命令，会报 `ERR_PNPM_CANNOT_DEPLOY`。所有地方（README、CI）都必须写 `pnpm run deploy`。
+2. **TOML 表作用域**：`routes` 写在 `[assets]` 之后就变成 `assets.routes`，wrangler 只给一句 `Unexpected fields found in assets field: "routes"` 警告，然后一声不响地不配域名。`routes` 必须在 `[assets]` 之前。
+3. **`custom_domain = true` 要求 hostname 上没有现存 DNS 记录**：`blog.rorytech.com` 有一条 Pages 时代留下的记录，wrangler 直接报 `code 100117 already has externally managed DNS records`。wrangler 的 OAuth token 没有 DNS 权限，删不掉它。
+4. 于是改用 **zone route**（`routes = [{ pattern = "blog.rorytech.com/*", zone_name = "rorytech.com" }]`）：它直接接管已有的代理记录，不需要动 DNS。代价是这条 DNS 记录仍然是 Pages 留下的 CNAME，将来想换成 Worker 自己的 custom domain，需要先在控制台删掉那条记录。
+
+顺序上的教训：**先把 route 部署好、确认已接管，再解绑 Pages 的域名**。反过来做（先解绑、再部署）中间会有一次 522——这次就是先解绑踩的，靠重新挂回 Pages 恢复，前后断了约 4 分钟。
+
+还剩两件手动的事（都在 Cloudflare 控制台）：
+
+- Workers Builds 连仓库：build `pnpm build`、deploy `pnpm run deploy`，打开 preview builds，不需要构建变量
+- 观察几天没问题后关掉 Pages 的自动部署，再删 Pages 项目

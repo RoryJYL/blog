@@ -18,7 +18,7 @@ https://blog.rorytech.com —— Rory 的个人博客。纯静态站点，没有
 pnpm dev       # velite watch + vite dev（http://localhost:5173）
 pnpm build     # velite → react-router build → 生成 atom/sitemap/404
 pnpm preview   # 用 wrangler 在本地跑真实产物（http://localhost:8787）
-pnpm deploy    # wrangler deploy
+pnpm run deploy  # wrangler deploy（pnpm deploy 是 pnpm 内建命令，必须带 run）
 pnpm typecheck # react-router typegen + tsc --noEmit
 ```
 

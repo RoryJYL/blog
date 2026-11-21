@@ -2,6 +2,12 @@
 name = "blog"
 compatibility_date = "2026-11-21"
 
+# 域名路由。注意必须写在 [assets] 之前：TOML 里 [assets] 之后的所有键都属于那张表，
+# 写错位置会被当成 assets.routes 静默忽略（只给一句 "Unexpected fields in assets" 警告）。
+# 用 zone route 而不是 custom_domain：这个 hostname 上已经有 DNS 记录，
+# custom_domain 会要求先删掉它（token 没有 DNS 权限），route 直接接管已有记录。
+routes = [{ pattern = "blog.rorytech.com/*", zone_name = "rorytech.com" }]
+
 # 纯静态资源，没有 Worker 脚本
 [assets]
 directory = "./build/client"
