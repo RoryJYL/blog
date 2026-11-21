@@ -136,7 +136,7 @@ export default function PlayStationTrophyCardList({
                 </motion.div>
                 <motion.div
                   layoutId={`trophies-${game.npCommunicationId}-${id}`}
-                  className="flex items-center gap-2"
+                  className="flex flex-wrap items-center gap-x-2 gap-y-1"
                 >
                   {showTrophies.map((trophy) => (
                     <TrophyIcon
@@ -200,7 +200,7 @@ function ListCard({ active, id }: { active: Game; id: string }) {
           </motion.div>
           <motion.div
             layoutId={`trophies-${active.npCommunicationId}-${id}`}
-            className="flex items-center gap-2"
+            className="flex flex-wrap items-center gap-x-2 gap-y-1"
           >
             {showTrophies.map((trophy) => (
               <TrophyIcon

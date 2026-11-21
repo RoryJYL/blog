@@ -65,7 +65,7 @@ export function MobileNav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.15, ease: 'easeOut' }}
-              className="absolute inset-x-0 top-full z-120 border bg-background py-3 px-4 shadow-lg"
+              className="absolute inset-x-0 top-full z-120 border-y bg-background py-3 px-4 shadow-lg"
             >
               <nav aria-label="站点导航" className="flex flex-col">
                 {navLinks.map((link) => (

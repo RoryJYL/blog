@@ -35,7 +35,7 @@ export function PlayStationTrophies({
 
   return (
     <Card>
-      <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-4 space-y-0">
+      <CardHeader className="flex flex-col md:flex-row md:justify-between font-normal text-xl gap-y-4 space-y-0 p-4 sm:p-6">
         <div className="shrink-0 flex items-center gap-2">
           <div className="relative">
             <img
@@ -53,7 +53,7 @@ export function PlayStationTrophies({
         </div>
         <TrophiesSummary profile={profile} />
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
         {playing && (
           <PlayingCard
             title={playing.title}
