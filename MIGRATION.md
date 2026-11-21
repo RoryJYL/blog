@@ -546,3 +546,42 @@ not_found_handling = "404-page"
 
 - **CSP**：先不做。真要做，MDX 渲染方式必须换（`new Function` 与严格 CSP 冲突），是独立议题
 - **`date` 字段解析**：PR 1 抽查三篇的显示日期与 atom `<updated>`
+
+---
+
+## 15. 验收实测（2026-11-21）
+
+分支 `migrate-to-react-router`。旧栈基线来自 `HEAD~1` 的干净构建（`git worktree` + `pnpm install` + `pnpm build`），不是仓库里那个被 dev 构建污染过的 `out/`（13M）。
+
+| 项                       | Next 14        | React Router 8 | 结论               |
+| ------------------------ | -------------- | -------------- | ------------------ |
+| 全量构建（冷启动）       | 21.8s          | 8.1s           | −63%               |
+| 产物总体积               | 6.1M（`out/`） | 4.0M           | −34%               |
+| 首屏 JS `/`（gzip）      | 237 KiB        | 224 KiB        | −5%                |
+| 首屏 JS `/posts`         | 282 KiB        | 244 KiB        | −14%               |
+| 首屏 JS 文章页           | 593 KiB        | 559 KiB        | −6%                |
+| 依赖数量 / 磁盘          | 1043 包 / 920M | 462 包 / 600M  | −56%               |
+| 12 个页面正文纯文本 diff | —              | 逐字一致       | 仅页脚致谢文字变化 |
+
+Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）：
+
+| 指标     | 现网            | 新栈            |
+| -------- | --------------- | --------------- |
+| 性能     | 90 · 80 · 76    | 93 · 83 · 73    |
+| 可访问性 | 100 · 96 · 91   | 100 · 96 · 95   |
+| 最佳实践 | 100 · 100 · 100 | 100 · 100 · 100 |
+| SEO      | 100 · 92 · 92   | 100 · 100 · 100 |
+
+文章页性能低 3 分是本地服务器不压缩造成的：`wrangler dev` 直接吐未压缩 JS（1.7 MiB），Cloudflare 会走 brotli（515 KiB）。其余两项（TBT 0ms vs 38–72ms、CLS 0）都更好。
+
+### 与方案的偏差
+
+1. **没有拆成 4 个 PR。** 内容层、路由、构建管线只有一起改才能 typecheck/构建；"只迁列表页"的中间态确实能构建，但部署上去详情页全 404，不是可发布状态。硬拆只会得到 4 个历史上并不存在的 commit。
+2. **新增 `html_handling = "drop-trailing-slash"`。** §9 漏了这条：Workers 静态资源默认把 `/posts` 307 到 `/posts/`，等于全站规范 URL 变成尾斜杠版。
+3. **CI 不需要构建变量。** 生产 API URL 一直是 `next.config.mjs` 里的硬编码常量（`wrangler.toml` 的 `[vars]` 对静态导出是死配置），`vite.config.ts` 原样照搬。§9「必须重配 `PSN_API_URL` / `STEAM_API_URL`」作废，也就不存在漏配后静默降级。
+4. **顺带修了 §12 之外两处：** 分页边界不再渲染 `href="/posts/0"` 这种死链（改为非链接的 `span`）；MDX 锚点转发 `aria-hidden` / `tabIndex`，标题旁的自动锚点不再是无名字链接。
+5. **日期改成构建时格式化。** 原来 `dayjs(date).format()` 在构建机和访客两端各算一次时区，UTC 以西的访客 hydration 时会看到日期跳变；现在按东八区在 `velite.config.ts` 里一次算死。
+
+### 未完成
+
+- **域名切换**：需要 `wrangler login`（本机 token 已过期）后 `pnpm deploy`、挂自定义域、打开 Workers Builds，再关 Pages 自动部署。代码侧已就绪，`wrangler deploy --dry-run` 通过。
