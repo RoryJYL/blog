@@ -1,0 +1,5 @@
+# Workers Static Assets 的 _headers。
+# 构建产物哈希已经写在文件名里（root-_VVK-K78.css），可以放心 immutable；
+# 其余路径保持默认的 max-age=0, must-revalidate，改了内容能立刻生效。
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

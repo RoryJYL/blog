@@ -581,6 +581,7 @@ Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）：
 3. **CI 不需要构建变量。** 生产 API URL 一直是 `next.config.mjs` 里的硬编码常量（`wrangler.toml` 的 `[vars]` 对静态导出是死配置），`vite.config.ts` 原样照搬。§9「必须重配 `PSN_API_URL` / `STEAM_API_URL`」作废，也就不存在漏配后静默降级。
 4. **顺带修了 §12 之外两处：** 分页边界不再渲染 `href="/posts/0"` 这种死链（改为非链接的 `span`）；MDX 锚点转发 `aria-hidden` / `tabIndex`，标题旁的自动锚点不再是无名字链接。
 5. **日期改成构建时格式化。** 原来 `dayjs(date).format()` 在构建机和访客两端各算一次时区，UTC 以西的访客 hydration 时会看到日期跳变；现在按东八区在 `velite.config.ts` 里一次算死。
+6. **补了 `public/_headers`。** Workers 静态资源默认对一切返回 `max-age=0, must-revalidate`，而 Pages 给哈希资源 `max-age=14400`。不补规则等于每个带哈希的 JS/CSS 每次访问都要回源确认；现在 `/assets/*` 是 `max-age=31536000, immutable`，比现网更好，其余路径保持默认。
 
 ### 未完成
 
