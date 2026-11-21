@@ -583,6 +583,12 @@ Lighthouse（mobile，3 次取中位数，`/` · `/posts` · 文章页）：
 5. **日期改成构建时格式化。** 原来 `dayjs(date).format()` 在构建机和访客两端各算一次时区，UTC 以西的访客 hydration 时会看到日期跳变；现在按东八区在 `velite.config.ts` 里一次算死。
 6. **补了 `public/_headers`。** Workers 静态资源默认对一切返回 `max-age=0, must-revalidate`，而 Pages 给哈希资源 `max-age=14400`。不补规则等于每个带哈希的 JS/CSS 每次访问都要回源确认；现在 `/assets/*` 是 `max-age=31536000, immutable`，比现网更好，其余路径保持默认。
 
-### 未完成
+### 未完成：域名切换
 
-- **域名切换**：需要 `wrangler login`（本机 token 已过期）后 `pnpm deploy`、挂自定义域、打开 Workers Builds，再关 Pages 自动部署。代码侧已就绪，`wrangler deploy --dry-run` 通过。
+本机 `wrangler` token 已过期，非交互环境登不进去（`cf` CLI 也没有凭证），所以这一步没做。代码侧已就绪，`wrangler deploy --dry-run` 通过（82 个资源，无 Worker 脚本）。顺序：
+
+1. `pnpm exec wrangler login`
+2. `pnpm build && pnpm deploy` —— 先只上 `<account>.workers.dev`，不碰自定义域。逐条验证 13 条路由、`/posts/1` 与 `/gamer-profile` 的 301、`/nope` 的真 404、`/assets/*` 的 `immutable` 头
+3. 验证通过后在 `wrangler.toml` 追加 `routes = [{ pattern = "blog.rorytech.com", custom_domain = true }]` 再 `pnpm deploy`。**Pages 还占着这个域名时 wrangler 会直接报错**，先去 Pages 项目里解绑，再回来部署——这一步是几秒钟的切换窗口
+4. Workers Builds 连同一仓库：build command `pnpm build`、deploy command `pnpm deploy`，打开 preview builds；**不需要任何构建变量**（见偏差 3）
+5. 观察 3 天再关 Pages 的自动部署（这时它还是回滚通道）
